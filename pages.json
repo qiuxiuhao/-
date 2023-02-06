@@ -5,6 +5,20 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+		    "path" : "pages/index/login",
+		    "style" :
+		    {
+		        "titleNView":false
+		    }        
+		},
+		{
+		    "path" : "pages/index/register",
+		    "style" :
+		    {
+		        "titleNView":false
+		    }    
 		}
 	],
 	"globalStyle": {

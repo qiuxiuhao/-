@@ -1,9 +1,6 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+		<text>首页</text>
 	</view>
 </template>
 
@@ -11,14 +8,27 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				text:''
 			}
 		},
 		onLoad() {
 
 		},
-		methods: {
-
+		methods: {				
+		},
+		beforeCreate() {
+			uni.getStorage({
+				key: 'userinfo',
+				sucess: function (res) {
+					console.log('成功')
+				},
+				fail() {
+					uni.redirectTo({
+						url: './login'
+					});
+				}
+			});
 		}
 	}
 </script>
