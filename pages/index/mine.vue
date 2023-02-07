@@ -1,10 +1,43 @@
 <template>
-	<view class="content">
-		<view class="status_bar">			<!--状态栏-->		</view>	
-		<view class="head">
-			<text>我&nbsp;&nbsp;&nbsp;&nbsp;的</text>
+	<view>
+		<view class="status_bar">
+			<!--状态栏-->
 		</view>
-		<button @click="chear">清除缓存</button>
+		<!--头像、昵称、个性签名-->
+		<view class="head">
+			<image src="../../static/touxiantext.png" alt="" class="userhead">
+			<view class="">
+				<text class="name" >{{user.username}}</text><br>
+				<text>{{user.gexin}}</text>
+			</view>
+		</view>
+		<!--功能列表-->
+		<view class="">
+			<view class="item"  @click="">
+				<text>个人中心</text>
+			</view>
+			<view class="item"  @click="">
+				<text >账号安全</text>
+			</view>
+			<view class="item"  @click="">
+				<text >我的钱包</text>
+			</view>
+			<view class="item"  @click="">
+				<text >我的收藏</text>
+			</view>
+			<view class="item"  @click="">
+				<text >我的订单</text>
+			</view>
+			<view class="item"  @click="">
+				<text >我的发布</text>
+			</view>
+			<view class="item"  @click="">
+				<text >意见反馈</text>
+			</view>
+			<view class="item"  @click="chear">
+				<text >清除缓存</text>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -12,7 +45,10 @@
 	export default {
 		data() {
 			return {
-				
+				user:{
+					username:"哈哈",
+					gexin:"你好啊！"
+				}
 			}
 		},
 		methods: {
@@ -27,17 +63,35 @@
 </script>
 
 <style>
-	.status_bar{
-		height: var(--status-bar-height);
-	    width: 100%;
-		background-color: #66C3E4;
-	}
 	.head{
 		width: 100%;
-		text-align: center;
+		height: 100px;
+		padding-top: 50px;
+		padding-left: 50px;
+		display: flex;
+		flex-direction: row;
+		border-bottom:solid #ededed ;
+	}
+	.userhead{
+		width: 60px;height: 60px;
+		border-radius: 30px;
+	}
+	.name{
+		font-size: 24px;
+	}
+	.status_bar{
+		height: var(--status-bar-height);
+	    width: 100%;background-color: #66C3E4;
+	}
+	.item{
+		height: 35px;width: 100%;
+		padding: 10px;
 		font-size: 20px;
-		background-color:  #66C3E4;
-		padding-bottom: 5px;
-		font-family: 'Courier New', Courier, monospace;
+		border-bottom: solid #ededed;
+		display: flex;
+		flex-direction: row;
+	}
+	.icon1{
+		height: 20px;width: 10px;
 	}
 </style>

@@ -1775,26 +1775,154 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "uni-view",
-    { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
+    { attrs: { _i: 0 } },
     [
       _c("uni-view", { staticClass: _vm._$g(1, "sc"), attrs: { _i: 1 } }),
       _c(
         "uni-view",
         { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
-        [_c("v-uni-text", { attrs: { _i: 3 } }, [_vm._v("我    的")])],
+        [
+          _c("v-uni-image", {
+            staticClass: _vm._$g(3, "sc"),
+            attrs: { src: _vm._$g(3, "a-src"), alt: "", _i: 3 },
+          }),
+          _c(
+            "uni-view",
+            { attrs: { _i: 4 } },
+            [
+              _c(
+                "v-uni-text",
+                { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
+                [_vm._v(_vm._$g(5, "t0-0"))]
+              ),
+              _c("br", { attrs: { _i: 6 } }),
+              _c("v-uni-text", { attrs: { _i: 7 } }, [
+                _vm._v(_vm._$g(7, "t0-0")),
+              ]),
+            ],
+            1
+          ),
+        ],
         1
       ),
       _c(
-        "v-uni-button",
-        {
-          attrs: { _i: 4 },
-          on: {
-            click: function ($event) {
-              return _vm.$handleViewEvent($event)
+        "uni-view",
+        { attrs: { _i: 8 } },
+        [
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(9, "sc"),
+              attrs: { _i: 9 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
             },
-          },
-        },
-        [_vm._v("清除缓存")]
+            [_c("v-uni-text", { attrs: { _i: 10 } }, [_vm._v("个人中心")])],
+            1
+          ),
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(11, "sc"),
+              attrs: { _i: 11 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
+            },
+            [_c("v-uni-text", { attrs: { _i: 12 } }, [_vm._v("账号安全")])],
+            1
+          ),
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(13, "sc"),
+              attrs: { _i: 13 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
+            },
+            [_c("v-uni-text", { attrs: { _i: 14 } }, [_vm._v("我的钱包")])],
+            1
+          ),
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(15, "sc"),
+              attrs: { _i: 15 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
+            },
+            [_c("v-uni-text", { attrs: { _i: 16 } }, [_vm._v("我的收藏")])],
+            1
+          ),
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(17, "sc"),
+              attrs: { _i: 17 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
+            },
+            [_c("v-uni-text", { attrs: { _i: 18 } }, [_vm._v("我的订单")])],
+            1
+          ),
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(19, "sc"),
+              attrs: { _i: 19 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
+            },
+            [_c("v-uni-text", { attrs: { _i: 20 } }, [_vm._v("我的发布")])],
+            1
+          ),
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(21, "sc"),
+              attrs: { _i: 21 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
+            },
+            [_c("v-uni-text", { attrs: { _i: 22 } }, [_vm._v("意见反馈")])],
+            1
+          ),
+          _c(
+            "uni-view",
+            {
+              staticClass: _vm._$g(23, "sc"),
+              attrs: { _i: 23 },
+              on: {
+                click: function ($event) {
+                  return _vm.$handleViewEvent($event)
+                },
+              },
+            },
+            [_c("v-uni-text", { attrs: { _i: 24 } }, [_vm._v("清除缓存")])],
+            1
+          ),
+        ],
+        1
       ),
     ],
     1
@@ -1894,7 +2022,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.status_bar{\n\theight: var(--status-bar-height);\n    width: 100%;\n\tbackground-color: #66C3E4;\n}\n.head{\n\twidth: 100%;\n\ttext-align: center;\n\tfont-size: 20px;\n\tbackground-color:  #66C3E4;\n\tpadding-bottom: 5px;\n\tfont-family: 'Courier New', Courier, monospace;\n}\n", ""]);
+exports.push([module.i, "\n.head{\n\twidth: 100%;\n\theight: 100px;\n\tpadding-top: 50px;\n\tpadding-left: 50px;\n\tdisplay: flex;\n\tflex-direction: row;\n\tborder-bottom:solid #ededed ;\n}\n.userhead{\n\twidth: 60px;height: 60px;\n\tborder-radius: 30px;\n}\n.name{\n\tfont-size: 24px;\n}\n.status_bar{\n\theight: var(--status-bar-height);\n    width: 100%;background-color: #66C3E4;\n}\n.item{\n\theight: 35px;width: 100%;\n\tpadding: 10px;\n\tfont-size: 20px;\n\tborder-bottom: solid #ededed;\n\tdisplay: flex;\n\tflex-direction: row;\n}\n.icon1{\n\theight: 20px;width: 10px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
