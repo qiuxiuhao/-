@@ -1,0 +1,23 @@
+
+.status_bar{
+	height: 25px;
+    width: 100%;
+}
+.head{
+	margin: 40px;
+	font-size: 36px;
+	text-align: center;
+}
+.input_1{
+	height: 30px;
+	margin: 30px;
+	padding-left: 10px;
+	border-bottom: solid;
+}
+.button_1{
+	margin: 50px;background-color:skyblue;
+}
+.read{
+	padding:50px;
+}
+

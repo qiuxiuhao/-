@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/login",
+    "pages/index/register",
+    "pages/index/message",
+    "pages/index/mine"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#57B6D8",
+    "backgroundColor": "#ededed",
+    "fontSize": "22px",
+    "height": "80px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/first_ed.png",
+        "selectedIconPath": "static/first_57.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/index/message",
+        "iconPath": "static/chat.png",
+        "selectedIconPath": "static/chat_57.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/index/mine",
+        "iconPath": "static/mine_ed.png",
+        "selectedIconPath": "static/mine_57.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,39 @@
+
+.status_bar{
+	height: 25px;
+    width: 100%;
+}
+.head{
+	margin: 40px;
+	font-size: 36px;
+	text-align: center;
+}
+.input_1{
+	height: 30px;
+	margin: 30px;
+	padding-left: 10px;
+	border-bottom: solid;
+}
+.input_2{
+	width: 300px;
+	height: 30px;
+	margin-top: 30px;margin-bottom: 30px;margin-left: 30px;
+	padding-left: 10px;
+	border-bottom: solid;
+}
+.button_1{
+	margin: 50px;background-color:skyblue;
+}
+.button_2{
+	width: 150px;
+	margin-top: 30px;margin-bottom: 30px;
+	background-color:skyblue;
+}
+.read{
+	padding:50px;
+}
+.cap{
+	display: flex;
+	flex-direction: row
+}
+
