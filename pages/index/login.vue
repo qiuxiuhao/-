@@ -56,7 +56,7 @@
 									key: 'userinfo',
 									data: this.userinfo,
 									success: function () {
-										uni.redirectTo({
+										uni.switchTab({
 											url:"/pages/index/index"
 										})
 									}

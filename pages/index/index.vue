@@ -1,6 +1,9 @@
 <template>
 	<view class="content">
-		<text>首页</text>
+		<view class="status_bar">			<!--状态栏-->		</view>	
+		<view class="head">
+			<text>首&nbsp;&nbsp;&nbsp;&nbsp;页</text>
+		</view>
 	</view>
 </template>
 
@@ -34,29 +37,17 @@
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+	.status_bar{
+		height: var(--status-bar-height);
+	    width: 100%;
+		background-color: #66C3E4;
 	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+	.head{
+		width: 100%;
+		text-align: center;
+		font-size: 20px;
+		background-color:  #66C3E4;
+		padding-bottom: 5px;
+		font-family: 'Courier New', Courier, monospace;
 	}
 </style>
