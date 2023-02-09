@@ -11,9 +11,11 @@
 		<view class=".read">
 			<switch @change="readchange" style="transform: scale(0.5);"/>
 			<text>已阅读并同意相关</text><text style="color: blue;border-bottom:solid;" @click="readchange">《用户协议》</text>
-			<text style="color: blue;margin-left:50% ;" @click="register">使用手机验证码登录/注册</text>
 		</view>
 		<button class="button_1" @click="login">登录</button>
+		<view class="register">
+			<text @click="register">使用手机验证码登录/注册</text>
+		</view>
 	</view>
 </template>
 
@@ -112,5 +114,10 @@
 	}
 	.read{
 		padding:50px;
+	}
+	.register{
+		margin: 50px;
+		text-align: center;
+		color: skyblue;
 	}
 </style>

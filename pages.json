@@ -1,11 +1,13 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		//首页
 		{
 			"path": "pages/index/index",
 			"style": {
 				 "titleNView":false
 			}
 		},
+		//密码登录
 		{
 		    "path" : "pages/index/login",
 		    "style" :
@@ -13,6 +15,7 @@
 		        "titleNView":false
 		    }        
 		},
+		//验证码登录
 		{
 		    "path" : "pages/index/register",
 		    "style" :
@@ -20,6 +23,7 @@
 		        "titleNView":false
 		    }    
 		},
+		//消息
 		{
 		    "path" : "pages/index/message",
 		    "style" :
@@ -27,6 +31,7 @@
 		        "titleNView":false
 		    }    
 		},
+		//我的
 		{
 		    "path" : "pages/index/mine",
 		    "style" :
@@ -34,7 +39,94 @@
 		        "titleNView":false
 		    }    
 		}
-	],
+		//个人中心
+	    ,{
+            "path" : "pages/mine/me",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//账号安全
+		,{
+            "path" : "pages/mine/safe",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "账号安全",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//我的钱包
+		,{
+		    "path" : "pages/mine/wallet",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的钱包",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+		    }
+		    
+		}
+		//我的收藏
+		,{
+		    "path" : "pages/mine/Collection",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的收藏",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+		    }
+		    
+		}
+		//我的订单
+		,{
+		    "path" : "pages/mine/order",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的订单",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+		    }
+		    
+		}
+		//我的发布
+		,{
+            "path" : "pages/mine/release",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的发布",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//意见反馈
+		,{
+            "path" : "pages/mine/advice",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "意见反馈",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/userinfo_set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	//导航
 	"tabBar": {
 		"color": "#000000",
 		"selectedColor": "#57B6D8",

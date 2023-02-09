@@ -13,25 +13,25 @@
 		</view>
 		<!--功能列表-->
 		<view class="">
-			<view class="item"  @click="">
+			<view class="item"  @click="goto('me')">
 				<text>个人中心</text>
 			</view>
-			<view class="item"  @click="">
+			<view class="item"  @click="goto('safe')">
 				<text >账号安全</text>
 			</view>
-			<view class="item"  @click="">
+			<view class="item"  @click="goto('wallet')">
 				<text >我的钱包</text>
 			</view>
-			<view class="item"  @click="">
+			<view class="item"  @click="goto('Collection')">
 				<text >我的收藏</text>
 			</view>
-			<view class="item"  @click="">
+			<view class="item"  @click="goto('order')">
 				<text >我的订单</text>
 			</view>
-			<view class="item"  @click="">
+			<view class="item"  @click="goto('release')">
 				<text >我的发布</text>
 			</view>
-			<view class="item"  @click="">
+			<view class="item"  @click="goto('advice')">
 				<text >意见反馈</text>
 			</view>
 			<view class="item"  @click="chear">
@@ -52,10 +52,28 @@
 			}
 		},
 		methods: {
+			//清空本地缓存并退出登录
 			chear(){
-				uni.clearStorage();
-				uni.redirectTo({
-					url:'/pages/index/login'
+				uni.showModal({
+					content: '是否清空本地缓存',
+					success: function (res) {
+						if (res.confirm) {
+							uni.clearStorage();
+							uni.redirectTo({
+								url:'/pages/index/login'
+							})
+						} else if (res.cancel) {
+							uni.switchTab({
+								url:'/pages/index/index'
+							})
+						}
+					}
+				});
+			},
+			//前往指定页面
+			goto(where){
+				uni.navigateTo({
+					url:'../../pages/mine/' + where
 				})
 			}
 		}
