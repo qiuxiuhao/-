@@ -2,15 +2,15 @@
 	<view>
 		<view class="item">
 			<text class="mon1">余额:</text><br>
-			<text class="mon2">{{money}}</text>
+			<text class="mon2">{{balance}}</text>
 		</view>
-		<view class="item2">
+		<view class="item2" @click="goto('recharge')">
 			<text class="text1">前往充值</text>
 		</view>
-		<view class="item2">
+		<view class="item2" @click="goto('record')">
 			<text class="text1">交易记录</text>
 		</view>
-		<view class="item2">
+		<view class="item2" @click="goto('pay_set')">
 			<text class="text1">支付设置</text>
 		</view>
 	</view>
@@ -20,11 +20,34 @@
 	export default {
 		data() {
 			return {
-				money:190.01		
+				id:'',
+				balance:'190.01'		
 			}
 		},
+		/*beforeCreate() {
+			//获取本地存储的用户id
+			uni.getStorage({
+				key:'userinfo_main',
+				success(res) {
+					this.id = res.data.id
+				}
+			})
+			//向数据库获取余额
+			uni.request({
+				url:'',
+				data:{id:this.id},
+				success(res) {
+					this.balance = res.data.balance
+				}
+			})
+		},*/
 		methods: {
-			
+			//前往指定页面
+			goto(where){
+				uni.navigateTo({
+					url:'/pages/mine/wallet/' + where
+				})
+			}
 		}
 	}
 </script>

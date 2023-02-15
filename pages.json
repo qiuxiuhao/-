@@ -159,6 +159,40 @@
             }
             
         }
+		//充值
+        ,{
+            "path" : "pages/mine/wallet/recharge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "充值",
+                "enablePullDownRefresh": false,
+                "navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//交易记录
+        ,{
+            "path" : "pages/mine/wallet/record",
+            "style" :                                                                                    
+            
+            {
+                "navigationBarTitleText": "交易记录",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//支付设置
+        ,{
+            "path" : "pages/mine/wallet/pay_set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "支付设置",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
     ],
 	//导航
 	"tabBar": {
