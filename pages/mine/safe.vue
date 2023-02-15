@@ -5,18 +5,18 @@
 				<text>账号</text>
 			</view>
 			<view class="item_3">
-				<text>{{id}}</text>
+				<text>{{userinfo_main.id}}</text>
 			</view>
 		</view>
-		<view class="item">
+		<view class="item" @click="goto('phonenumber_set')">
 			<view class="item_1">
 				<text>手机号</text>
 			</view>
 			<view class="item_3">
-				<text>{{phone}}</text>
+				<text>{{userinfo_main.phonenumber}}</text>
 			</view>
 		</view>
-		<view class="item">
+		<view class="item" @click="goto('password_set')">
 			<view class="item_1">
 				<text>账号密码</text>
 			</view>
@@ -31,12 +31,30 @@
 	export default {
 		data() {
 			return {
-				id:'123456789',
-				phone:'18307068239',
+				userinfo_main:{
+						id:'123456',
+						phonenumber:'',
+						password:'',
+				}
 			}
 		},
+		//获取本地的数据
+		/*beforeCreate() {
+			uni.getStorage({
+				key:'userinfo_main',
+				success(res) {
+					this.userinfo_main = res.data
+				}
+			})
+		},*/
+		
 		methods: {
-			
+			//前往指定页面
+			goto(where){
+				uni.navigateTo({
+					url:'/pages/mine/safe/' + where
+				})
+			}
 		}
 	}
 </script>

@@ -116,7 +116,7 @@
             }
             
         }
-		//初始化个人信息
+		//初始化数据库
         ,{
             "path" : "pages/index/userinfo_set",
             "style" :                                                                                    
@@ -132,6 +132,28 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "编辑信息",
+                "enablePullDownRefresh": false,
+                "navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//重新设置密码
+        ,{
+            "path" : "pages/mine/safe/password_set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "重设密码",
+                "enablePullDownRefresh": false,
+                "navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//换绑手机号
+        ,{
+            "path" : "pages/mine/safe/phonenumber_set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "换绑手机",
                 "enablePullDownRefresh": false,
                 "navigationBarBackgroundColor": "#66C3E4"
             }
