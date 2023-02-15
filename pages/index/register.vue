@@ -66,7 +66,7 @@
 					/*
 					if(this.captcha===this.captcha2){
 						uni.request({
-						    url: 'http://qiuxiuhao.viphk.91tunnel.com/login()', //仅为示例，并非真实接口地址。
+						    url: 'http://qiuxiuhao.viphk.91tunnel.com/login', //仅为示例，并非真实接口地址。
 						    data: {
 						        phonenumber: this.phonenumber
 						    },

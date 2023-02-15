@@ -116,12 +116,24 @@
             }
             
         }
+		//初始化个人信息
         ,{
             "path" : "pages/index/userinfo_set",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
+            }
+            
+        }
+		//修改个人信息
+        ,{
+            "path" : "pages/mine/me/me_set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "编辑信息",
+                "enablePullDownRefresh": false,
+                "navigationBarBackgroundColor": "#66C3E4"
             }
             
         }

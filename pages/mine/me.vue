@@ -13,7 +13,7 @@
 				<text>昵称</text>
 			</view>
 			<view class="item_3">
-				<text>{{name}}</text>
+				<text>{{userinfo.name}}</text>
 			</view>
 		</view>
 		<view class="item">
@@ -21,7 +21,7 @@
 				<text>性别</text>
 			</view>
 			<view class="item_3">
-				<text>{{gender}}</text>
+				<text>{{userinfo.name}}</text>
 			</view>
 		</view>
 		<view class="item">
@@ -29,7 +29,7 @@
 				<text>学校</text>
 			</view>
 			<view class="item_3">
-				<text>{{school}}</text>
+				<text>{{userinfo.school}}</text>
 			</view>
 		</view>
 		<view class="item">
@@ -37,8 +37,11 @@
 				<text>个性签名</text>
 			</view>
 			<view class="item_3">
-				<text>{{qianmin}}</text>
+				<text>{{userinfo.autograph}}</text>
 			</view>
+		</view>
+		<view style="text-align: center;">
+			<text style="color: skyblue;" @click="goset">编辑信息</text>
 		</view>
 	</view>
 </template>
@@ -47,14 +50,23 @@
 	export default {
 		data() {
 			return {
-				name:'星空',
-				gender:'男',
-				school:'中国矿业大学(北京)',
-				qianmin:'哈哈哈'
+				userinfo:""
 			}
 		},
 		methods: {
-			
+			goset(){
+				uni.navigateTo({
+					url:'/pages/mine/me/me_set'
+				})
+			}
+		},
+		beforeCreate(){
+			uni.getStorage({
+				key:'userinfo',
+				success(res) {
+					this.userinfo ==  res.data
+				}
+			})
 		}
 	}
 </script>
