@@ -193,6 +193,26 @@
             }
             
         }
+		//设置支付密码
+        ,{
+            "path" : "pages/mine/wallet/pay_password_set",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "支付密码",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/order/order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	//导航
 	"tabBar": {

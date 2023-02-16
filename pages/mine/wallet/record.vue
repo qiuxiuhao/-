@@ -2,10 +2,24 @@
 	<view>
 		<view v-for="record in records" class="view_record">
 			<view v-if="record.type === '付款'">
-				<text>付款</text>
+				<view class="item_row">
+					<text class="item_text">{{record.info.money}}<text style="font-size: 16px;padding-left: 5px;">元</text> </text>
+					<text class="item_text2">付款</text>
+				</view>
+				<view class="item_row">
+					<text class="item_text2">{{record.info.order_type}}-{{record.info.order_id}}</text>
+					<text class="item_text2">{{record.info.time}}</text>
+				</view>
 			</view>
 			<view v-if="record.type === '充值'">
-				<text>充值</text>
+				<view class="item_row">
+					<text class="item_text">{{record.info.money}}<text style="font-size: 16px;padding-left: 5px;">元</text> </text>
+					<text class="item_text2">充值</text>
+				</view>
+				<view class="item_row">
+					<text class="item_text2">{{record.info.pay_way}}</text>
+					<text class="item_text2">{{record.info.time}}</text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -38,9 +52,27 @@
 							money:'200',
 							time:'2023/2/15-23:31',
 							pay_way:'微信'}},
-				]
+				],
+				id:''
 			}
 		},
+		/*beforeCreate() {
+			//获取本地存储的用户id
+			uni.getStorage({
+				key:'userinfo_main',
+				success(res) {
+					this.id = res.data.id
+				}
+			})
+			//向数据请求对应账号的充值记录
+			uni.request({
+				url:'',
+				data:{id:this.id},
+				success(res) {
+					this.records = res.data.records
+				}
+			})
+		},*/
 		methods: {
 			
 		}
@@ -50,6 +82,21 @@
 <style>
 	.view_record{
 		height:100px;
-		border-bottom:solid;
+		margin: 10px;
+		background-color: #ededed;
+		border-radius: 10px;
+	}
+	.item_row{
+		padding: 10px;
+		display: flex;
+		flex-direction: row;
+	}
+	.item_text{
+		font-size: 24px;
+		width: 300px;height: 40px;
+	}
+	.item_text2{
+		font-size: 16px;
+		width: 200px;height: 30px;
 	}
 </style>
