@@ -88,23 +88,12 @@
 		    "path" : "pages/mine/order",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "我的订单",
+		        "navigationBarTitleText": "业务中心",
 		        "enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#66C3E4"
 		    }
 		    
 		}
-		//我的发布
-		,{
-            "path" : "pages/mine/release",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的发布",
-                "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#66C3E4"
-            }
-            
-        }
 		//意见反馈
 		,{
             "path" : "pages/mine/advice",
@@ -204,12 +193,58 @@
             }
             
         }
+		//新增发布
         ,{
-            "path" : "pages/mine/order/order",
+            "path" : "pages/mine/order/release",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增发布",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//二手详情
+        ,{
+            "path" : "pages/detail/shopdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "详情",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//列表
+        ,{
+            "path" : "pages/list/list",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//失物招领详情
+        ,{
+            "path" : "pages/detail/lossdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "详情",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//跑腿代办详情
+        ,{
+            "path" : "pages/detail/rundetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "详情",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
             }
             
         }

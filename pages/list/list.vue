@@ -5,7 +5,33 @@
 		</view>
 		<view class="list">
 			<view class="" v-for="good in goods">
-				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.type,good.id)">
+				<view v-if="type==='失物招领'">
+					<view class="item" @click="gotodetail(good.type,good.id)">
+						<view class="left">
+							<img src="" class="imag1">
+							<view class="">
+								<text class="text1">{{good.name}}</text><br>
+								<text class="text2">{{good.time}}</text>
+							</view>
+						</view>
+						<view class="right">
+							{{good.type}}
+						</view>
+					</view>
+					<view class="item" @click="gotodetail(good.type,good.id)">
+						<view class="left">
+							<img src="" class="imag1">
+							<view class="">
+								<text class="text1">{{good.name}}</text><br>
+								<text class="text2">{{good.time}}</text>
+							</view>
+						</view>
+						<view class="right">
+							{{good.type}}
+						</view>
+					</view>
+				</view>
+				<view v-if="type==='代办'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -17,31 +43,7 @@
 						{{good.type}}
 					</view>
 				</view>
-				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.type,good.id)">
-					<view class="left">
-						<img src="" class="imag1">
-						<view class="">
-							<text class="text1">{{good.name}}</text><br>
-							<text class="text2">{{good.time}}</text>
-						</view>
-					</view>
-					<view class="right">
-						{{good.type}}
-					</view>
-				</view>
-				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.type,good.id)">
-					<view class="left">
-						<img src="" class="imag1">
-						<view class="">
-							<text class="text1">{{good.name}}</text><br>
-							<text class="text2">{{good.time}}</text>
-						</view>
-					</view>
-					<view class="right">
-						{{good.type}}
-					</view>
-				</view>
-				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.type,good.id)">
+				<view v-if="type==='二手'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -89,7 +91,12 @@
 						time:'2022-11-9 10:10:10'
 					}
 				]
+				,type:''
 			}
+		},
+		onLoad(option) {
+			this.type = option.type
+			console.log(this.type)
 		},
 		/*beforeCreate() {
 				//从本地获取用户id
@@ -102,7 +109,7 @@
 				//向数据库获取收藏数组
 				uni.request({
 					url:'',
-					data:{id:this.id},
+					data:{id:this.id,type:this.type},
 					success(res) {
 						this.initial_goods = res.data.goods
 					}
@@ -172,3 +179,4 @@
 		font-size: 14px;
 	}
 </style>
+
