@@ -6,7 +6,7 @@
 			<text class="text_1">验证码</text>
 			<view class="cap">
 				<input class="input_2"type="number" v-model="captch">
-				<button class="button_cap" @click="getcaptch">获取验证码</button>
+				<button class="button_cap" @click="getcaptch":style="{color:color}">{{msg}}</button>
 			</view>
 			<button class="button_1" @click="setphonenumber">确定修改</button>
 		</view>
@@ -17,6 +17,10 @@
 	export default {
 		data() {
 			return {
+				msg:'获取验证码',
+				color:'black',
+				timer:'',
+				time:60,
 				userinfo_main:{
 						id:'1234',
 						phonenumber:'',
@@ -39,7 +43,23 @@
 		methods: {
 			//获取验证码
 			getcaptch(){
-				
+				if(this.msg==='获取验证码'){
+					//按钮样式改变
+					this.timer = setInterval(() => {
+						if(this.time > 0){
+							this.time = this.time - 1
+							this.msg = this.time + 's重新验证码'
+							this.color = '#ededed'
+						}
+						else{
+							this.time = 60
+							this.msg='获取验证码'
+							this.color = 'black'
+							clearInterval(this.timer)
+						}
+					}, 1000);
+					console.log('获取验证码')
+				}
 			},
 			//提交手机号修改
 			setphonenumber(){
@@ -98,7 +118,7 @@
 	}
 	.button_cap{
 		margin-top: 10px;
-		width: 150px;height: 40px;background-color:skyblue;
+		width: 150px;height: 40px;background-color: skyblue;
 		font-size: 16px;
 	}
 	.cap{

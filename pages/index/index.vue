@@ -16,6 +16,7 @@
 		    <image class="icon1" style="-webkit-flex: 1;flex: 1;" src="../../static/print.png" />
 		    <image class="icon1" style="-webkit-flex: 1;flex: 1;" src="../../static/tieba.png" />
 		</view>
+		<button @click="test">test</button>
 	</view>
 </template>
 
@@ -33,6 +34,11 @@
 			gotolist(type){
 				uni.navigateTo({
 					url:'/pages/list/list?type=' + type
+				})
+			},
+			test(){
+				uni.navigateTo({
+					url:'/pages/detail/lossdetail'
 				})
 			}
 		},
