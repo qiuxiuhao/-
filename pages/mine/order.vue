@@ -20,7 +20,7 @@
 		</view>
 		<view>
 			<view class="" v-for="good in goods">		
-				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.id)">
+				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -32,7 +32,7 @@
 						{{good.type}}<br><text class="text5">{{good.status}}</text>
 					</view>
 				</view>
-				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.id)">
+				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -44,7 +44,7 @@
 							{{good.type}}<br><text class="text5">{{good.status}}</text>
 						</view>
 				</view>
-				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.id)">
+				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -56,7 +56,7 @@
 						{{good.type}}<br><text class="text5">{{good.status}}</text>
 					</view>
 				</view>
-				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.id)">
+				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -150,9 +150,9 @@
 			selectstatus(e){
 				this.select.status = this.status[e.detail.value]
 			},
-			gotodetail(id){
+			gotodetail(id,type){
 				uni.navigateTo({
-					url:'/pages/mine/order/order_detail?id = ' + id
+					url:'/pages/mine/order/order_detail?id = ' + id +'&type=' +  type
 				})
 			},
 			release(){

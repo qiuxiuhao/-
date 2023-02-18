@@ -12,7 +12,7 @@
 			<text class="detailtext">{{good.detail}}</text>
 		</view>
 		<!--联系商家-->
-		<view class="contact">
+		<view class="contact" @click="talk">
 			<image src="../../static/contract.png" class="image3"></image><br>
 			<text class="text3">联系卖家</text>
 		</view>
@@ -73,6 +73,12 @@
 			})
 		},*/
 		methods: {
+			//联系
+			talk(){
+				uni.navigateTo({
+					url:'/pages/messsge_detail/messsge_detail?id=' + this.good.userid
+				})
+			},
 			//输入地址支付生成订单
 			gopay(){
 				uni.showModal({

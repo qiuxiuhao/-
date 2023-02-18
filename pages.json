@@ -245,6 +245,37 @@
                 "navigationBarTitleText": "详情",
                 "enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#66C3E4"
+            }  
+        },
+		//订单详情
+		{
+		    "path" : "pages/mine/order/order_detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "详情",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+		    }  
+		}
+		//聊天页面
+        ,{
+            "path" : "pages/messsge_detail/messsge_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//系统通知
+        ,{
+            "path" : "pages/messsge_detail/sys_notice",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "系统通知",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
             }
             
         }
