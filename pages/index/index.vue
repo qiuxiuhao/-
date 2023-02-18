@@ -16,7 +16,7 @@
 		    <image class="icon1" style="-webkit-flex: 1;flex: 1;" src="../../static/print.png" />
 		    <image class="icon1" style="-webkit-flex: 1;flex: 1;" src="../../static/tieba.png" />
 		</view>
-		<button @click="test">test</button>
+		<button @click="test">setinfo(测试按钮)</button>
 	</view>
 </template>
 
@@ -38,7 +38,7 @@
 			},
 			test(){
 				uni.navigateTo({
-					url:'/pages/detail/lossdetail'
+					url:'/pages/index/userinfo_set'
 				})
 			}
 		},

@@ -8,8 +8,7 @@
 			<input class="input_1" type="text" v-model="phonenumber" placeholder="手机号">
 			<view class="cap">
 				<input class="input_2" type="safe-password" v-model="captcha" placeholder="验证码">
-				<button v-if="!got" class="button_2" @click="getcap">获取验证码</button>
-				<button v-if="got" class="button_3">{{time}}秒重新获取</button>
+				<button class="button_cap" @click="getcaptch":style="{color:color}">{{msg}}</button>
 			</view>
 		</view>
 		<view class=".read">
@@ -29,8 +28,10 @@
 				captcha:'',
 				captcha2:'',
 				read:false,
-				got:false,
-				time:60
+				msg:'获取验证码',
+				color:'black',
+				timer:'',
+				time:60,
 			}
 		},
 		methods: {
@@ -38,6 +39,26 @@
 				this.read = e.detail.value
 			},
 			readaggre(){
+			},
+			//获取验证码
+			getcaptch(){
+				if(this.msg==='获取验证码'){
+					//按钮样式改变
+					this.timer = setInterval(() => {
+						if(this.time > 0){
+							this.time = this.time - 1
+							this.msg = this.time + 's重新验证码'
+							this.color = '#ededed'
+						}
+						else{
+							this.time = 60
+							this.msg='获取验证码'
+							this.color = 'black'
+							clearInterval(this.timer)
+						}
+					}, 1000);
+					this.getcap()
+				}
 			},
 			//获取验证码
 			getcap(){
@@ -58,7 +79,7 @@
 				/*。。。。
 				。。。*/
 			},
-			
+			//登录or注册
 			login(){
 				//已勾选协议
 				if(this.read){
@@ -66,7 +87,7 @@
 					/*
 					if(this.captcha===this.captcha2){
 						uni.request({
-						    url: 'http://qiuxiuhao.viphk.91tunnel.com/login', //仅为示例，并非真实接口地址。
+						    url: 'http://qiuxiuhao.viphk.91tunnel.com/register', //仅为示例，并非真实接口地址。
 						    data: {
 						        phonenumber: this.phonenumber
 						    },
@@ -77,6 +98,14 @@
 								//如果是老用户
 								if(res.data.userinfo !== null){
 									//将用户信息写入本地
+									uni.setStorage({
+										key: 'userinfo_main',
+										data: res.data.userinfo_main,
+									});
+									uni.setStorage({
+										key: 'pay',
+										data: res.data.pay,
+									});
 									uni.setStorage({
 										key: 'userinfo',
 										data: res.data.userinfo,

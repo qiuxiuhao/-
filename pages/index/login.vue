@@ -55,9 +55,18 @@
 							//密码正确
 							if(this.contrast){
 								uni.setStorage({
+									key: 'userinfo_main',
+									data: res.data.userinfo_main,
+								});
+								uni.setStorage({
+									key: 'pay',
+									data: res.data.pay,
+								});
+								uni.setStorage({
 									key: 'userinfo',
-									data: this.userinfo,
+									data: res.data.userinfo,
 									success: function () {
+										//写入成功后进入首页
 										uni.switchTab({
 											url:"/pages/index/index"
 										})
