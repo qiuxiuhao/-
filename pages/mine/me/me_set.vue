@@ -6,8 +6,8 @@
 				<view class="item_1">
 					<text>头像</text>
 				</view>
-				<view class="item_2">
-					<image  class="touxian" src="../../../static/touxiantext.png"></image>
+				<view class="item_2" @click="setimage">
+					<image class="touxian" :src="userinfo.avatar"></image>
 				</view>
 			</view>
 			<!--设置昵称-->
@@ -62,41 +62,53 @@
 	export default {
 		data() {
 			return {
-				userinfo:{
-					name:'xinyuyi',
-					gender:'男',
-					school:'中国矿业大学（北京）',
-					autograph:'你好呀',
+				userinfo: {
+					name: 'xinyuyi',
+					gender: '男',
+					school: '中国矿业大学（北京）',
+					autograph: '你好呀',
+					avatar: '../../../static/touxiantext.png'
 				},
-				gender:['男','女'],
-				school:['清华大学','北京大学','中国矿业大学（北京）']
+				gender: ['男', '女'],
+				school: ['清华大学', '北京大学', '中国矿业大学（北京）']
 			}
 		},
 		methods: {
 			//设置头像
-			setimage(){
+			setimage() {
 				//选择相册图片
 				uni.chooseImage({
 					count: 1, //默认9
-					sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ['album'], //从相册选择
-					success: function (res) {
-						console.log(JSON.stringify(res.tempFilePaths));
+					sizeType: ['original','compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album','camera'], //从相册选择
+					success: function(res) {
+						const tempFilePaths = res.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://qiuxiuhao.viphk.91tunnel.com/upload', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'image',
+							formData: {
+								names: 'test'
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				});
 			},
 			//选择性别
-			setgender(e){
+			setgender(e) {
 				this.userinfo.gender = this.gender[e.detail.value]
 			},
 			//选择学校
-			setschool(e){
+			setschool(e) {
 				this.userinfo.school = this.school[e.detail.value]
 			},
 			//提交修改后的信息
-			/*submitinfo(){
+			submitinfo() {
 				//将数据提交至数据库
-				uni.request({
+				/*uni.request({
 					url:'http://qiuxiuhao.viphk.91tunnel.com/submitinfo',
 					data:{
 						userinfo:this.userinfo
@@ -118,9 +130,9 @@
 							}
 						})
 					}
-				})	
+				})*/
 			}
-			*/
+
 		},
 		//初始化数据
 		/*beforeCreate() {
@@ -142,37 +154,48 @@
 
 
 <style>
-    .item{
-		height: 60px;width: 100%;
+	.item {
+		height: 60px;
+		width: 100%;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		border-bottom: solid 2px #ededed;
 	}
-	.item_1{
-		height: 24px;width: 100px;
+
+	.item_1 {
+		height: 24px;
+		width: 100px;
 		align-self: center;
 		padding-left: 10px;
 	}
-	.item_2{
-		height: 40px;width: 100px;
+
+	.item_2 {
+		height: 40px;
+		width: 100px;
 		padding-right: 10px;
 		text-align: right;
 		align-self: center;
 	}
-	.item_3{
-		height: 24px;width: auto;
+
+	.item_3 {
+		height: 24px;
+		width: auto;
 		padding-right: 10px;
 		text-align: right;
 		align-self: center;
 		font-weight: 200;
 	}
-	.touxian{
-		height: 40px;width: 40px;
+
+	.touxian {
+		height: 40px;
+		width: 40px;
 	}
-	.button_1{
-		width: 150px;height: 40px;
-		margin-top: 50px;background-color:white
+
+	.button_1 {
+		width: 150px;
+		height: 40px;
+		margin-top: 50px;
+		background-color: white
 	}
 </style>
-

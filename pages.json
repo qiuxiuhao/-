@@ -110,8 +110,7 @@
             "path" : "pages/index/userinfo_set",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "titleNView":false
             }
             
         }
