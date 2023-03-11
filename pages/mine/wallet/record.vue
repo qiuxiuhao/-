@@ -53,21 +53,30 @@
 							time:'2023/2/15-23:31',
 							pay_way:'微信'}},
 				],
-				id:''
+				iuserinfo: {
+					id: '10001026',
+					phonenumber: '',
+					password: '',
+					name: '星辰',
+					gender: '男',
+					school: '中国矿业大学（北京）',
+					autograph: '小萌新',
+					avatar: '../../../static/touxiantext.png'
+				},
 			}
 		},
-		/*beforeCreate() {
+		/*onShow() {
 			//获取本地存储的用户id
 			uni.getStorage({
-				key:'userinfo_main',
+				key:'userinfo',
 				success(res) {
-					this.id = res.data.id
+					this.id = res.data
 				}
 			})
 			//向数据请求对应账号的充值记录
 			uni.request({
 				url:'',
-				data:{id:this.id},
+				data:{id:this.userinfo.id},
 				success(res) {
 					this.records = res.data.records
 				}

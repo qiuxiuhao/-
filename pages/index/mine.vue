@@ -5,10 +5,10 @@
 		</view>
 		<!--头像、昵称、个性签名-->
 		<view class="head">
-			<image src="../../static/touxiantext.png" alt="" class="userhead">
+			<image :src="userinfo.avatar" alt="" class="userhead">
 			<view class="">
-				<text class="name" >{{user.username}}</text><br>
-				<text>{{user.gexin}}</text>
+				<text class="name" >{{userinfo.name}}</text><br>
+				<text>{{userinfo.autograph}}</text>
 			</view>
 		</view>
 		<!--功能列表-->
@@ -42,11 +42,20 @@
 	export default {
 		data() {
 			return {
-				user:{
-					username:"哈哈",
-					gexin:"你好啊！"
-				}
+				userinfo:{
+					id:'',
+					phonenumber:'',
+					password:'',
+					name:'星辰',
+					gender:'男',
+					school:'请选择学校',
+					autograph:'小萌新',
+					avatar:'../../static/touxiantext.png'
+				},
 			}
+		},
+		onShow() {
+			//this.userinfo = uni.getStorageSync('userinfo')
 		},
 		methods: {
 			//清空本地缓存并退出登录

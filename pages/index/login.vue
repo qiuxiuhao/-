@@ -5,8 +5,8 @@
 			<text class="text_1">登录</text>                                                
 		</view>
 		<view>
-			<input class="input_1" type="text" v-model="userinfo.phonenumber" placeholder="手机号">
-			<input class="input_1" type="safe-password" v-model="userinfo.password" placeholder="密码">
+			<input class="input_1" type="text" v-model="userinfo1.phonenumber" placeholder="手机号">
+			<input class="input_1" type="safe-password" v-model="userinfo1.password" placeholder="密码">
 		</view>
 		<view class=".read">
 			<switch @change="readchange" style="transform: scale(0.5);"/>
@@ -23,9 +23,12 @@
 	export default {
 		data() {
 			return {
-				userinfo:{
+				userinfo1:{
 					phonenumber:'',
 					password:''
+				},
+				userinfo:{
+					
 				},
 				read:false,
 				contrast:false
@@ -43,21 +46,18 @@
 					uni.request({
 					    url: 'http://qiuxiuhao.viphk.91tunnel.com/login', //私人内外网穿透地址
 					    data: {
-					        phonenumber:this.userinfo.phonenumber,
-							password:this.userinfo.password
+					        phonenumber:this.userinfo1.phonenumber,
+							password:this.userinfo1.password
 					    },
 					    header: {
 					        'custom-header': 'hello' //自定义请求头信息
 					    },
 					    success: (res) => {
-							console.log(res.data.contrast)
+							console.log(res.data)
 					        this.contrast = res.data.contrast
+							/*this.userinfo = res.data.userinfo
 							//密码正确
 							if(this.contrast){
-								uni.setStorage({
-									key: 'userinfo_main',
-									data: res.data.userinfo_main,
-								});
 								uni.setStorage({
 									key: 'pay',
 									data: res.data.pay,
@@ -80,7 +80,7 @@
 									icon:'error',
 									duration: 2000
 								});
-							}
+							}*/
 					    }
 					});
 				}

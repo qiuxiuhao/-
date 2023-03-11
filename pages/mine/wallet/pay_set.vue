@@ -18,13 +18,23 @@
 	export default {
 		data() {
 			return {
-				pay:{
-					no_secret:false,
-					payword:'123456'
+				userinfo: {
+					id: '10001026',
+					phonenumber: '',
+					password: '',
+					name: '星辰',
+					gender: '男',
+					school: '中国矿业大学（北京）',
+					autograph: '小萌新',
+					avatar: '../../../static/touxiantext.png'
+				},
+				pay: {
+					no_secret: false,
+					password: '111111'
 				}
 			}
 		},
-		beforeCreate() {
+		/*onShow() {
 			//获取本地的免密设置
 			uni.getStorage({
 				key:'pay',
@@ -32,99 +42,117 @@
 					this.pay = res.data
 				}
 			})
-		},
+			uni.getStorage({
+				key:'userinfo',
+				success(res) {
+					this.userinfo = res.data
+				}
+			})
+		},*/
 		methods: {
-			changesecret(){
+			changesecret() {
 				//关闭免密
-				/*if(this.no_secret){
+				if (this.pay.no_secret) {
+					let b = this.pay.no_secret
+					let c = this.userinfo.id
+					let d = false;
 					uni.showModal({
 						content: '是否关闭免密支付？',
-						success: function (res) {
+						success: function(res) {
 							if (res.confirm) {
-								this.pay.no_secret = false
+								b = false
 								//将修改交到数据库
 								uni.request({
-									url:'',
-									data:{no_secret:this.pay.no_secret},
+									url: 'http://qiuxiuhao.viphk.91tunnel.com/nopayset',
+									data: {
+										no_secret: b,
+										id: c
+									},
 									success() {
 										//将数据写回本地
-										uni.setStorage({
-											data:this.pay,
-											key:'pay',
-											success() {
-												uni.showToast({
-													title:'关闭成功',
-													icon:'none'
-												})
-											}
-										})
+										console.log(res.data)
+										d = res.data.f;
 									}
 								})
-							} else if (res.cancel) {
-								uni.navigateBack()
-							}
+							} 
 						}
-					});
+					})
+					this.pay.no_secret = b;
+					this.set(d);
 				}
 				//开启免密
-				else{
-					if(this.no_secret){
-						uni.showModal({
-							content: '是否开启免密支付？',
-							editable:true,
-							placeholderText:'请输入支付免密',
-							success: function (res) {
-								if (res.confirm) {
-									//支付密码正确
-									if(res.content === this.pay.payword){
-										this.pay.no_secret = true
-										//将修改交到数据库
-										uni.request({
-											url:'',
-											data:{no_secret:this.pay.no_secret},
-											success() {
-												//将数据写回本地
-												uni.setStorage({
-													data:this.pay,
-													key:'pay',
-													success() {
-														uni.showToast({
-															title:'开启成功',
-															icon:'none'
-														})
-													}
-												})
-											}
-										})
-									}
-									//支付密码错误
-									else{
-										uni.showToast({
-											title:'密码错误',
-											icon:'error'
-										})
-									}
-								} else if (res.cancel) {
-									uni.navigateBack()
+				else {
+					let a = this.pay.password
+					let b = this.pay.no_secret
+					let c = this.userinfo.id
+					let d = false;
+					console.log(a)
+					uni.showModal({
+						content: '是否开启免密支付？',
+						editable: true,
+						placeholderText: '请输入支付免密',
+						success: function(res) {
+							if (res.confirm) {
+								console.log(res.content);
+								//支付密码正确
+								if (res.content === a) {
+									b = true
+									//将修改交到数据库
+									uni.request({
+										url: 'http://qiuxiuhao.viphk.91tunnel.com/nopayset',
+										data: {
+											no_secret: b,
+											id: c
+										},
+										success(res) {
+											//将数据写回本地
+											console.log(res.data)
+											d = res.data.f;
+										}
+									})
 								}
-							}
-						});
-				}*/
+								//支付密码错误
+								else {
+									uni.showToast({
+										title: '密码错误',
+										icon: 'error'
+									})
+								}
+							} 
+						}
+					});
+					this.pay.no_secret = b;
+					this.set(d)		
+				}
 			},
-			goto(){
+			goto() {
 				uni.navigateTo({
-					url:'/pages/mine/wallet/pay_password_set'
+					url: '/pages/mine/wallet/pay_password_set'
 				})
+			},
+			set(d){
+				if (d) {
+					uni.setStorage({
+						data: this.pay,
+						key: 'pay',
+						success() {
+							uni.showToast({
+								title: '开启成功',
+								icon: 'none'
+							})
+						}
+					})
+				}
 			}
 		}
 	}
 </script>
 
 <style>
-	.item{
+	.item {
 		height: 35px;
 		padding: 10px;
-		border-bottom:solid #ededed;
+		border-bottom: solid #ededed;
 		font-size: 18px;
 	}
 </style>

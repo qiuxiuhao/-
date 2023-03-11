@@ -87,16 +87,15 @@
 				pay_password2:'',
 				school:['清华大学','北京大学','中国矿业大学（北京）'],
 				gender:['男','女'],
-				userinfo_main:{
-					id:'',
-					phonenumber:'',
-					password:''
-				},
 				userinfo:{
+					id:'',
+					phonenumber:'12345678910',
+					password:'',
 					name:'',
 					gender:'男',
 					school:'请选择学校',
 					autograph:'小萌新',
+					avatar:'../../static/touxiantext.png'
 				},
 				pay:{
 					no_secret:false,
@@ -105,9 +104,9 @@
 				adequate:false
 			}
 		},
-		onLoad(e){
-			this.userinfo_main.phonenumber = e.phonenumber
-		},
+		/*onLoad(e){
+			this.userinfo.phonenumber = e.phonenumber
+		},*/
 		methods: {
 			//选择性别
 			setgender(e){
@@ -120,7 +119,7 @@
 			//保证密码一致性
 			affirm(){
 				if(this.password===this.password2){
-					this.userinfo_main.password = this.password
+					this.userinfo.password = this.password
 				}
 				if(this.pay_password === this.pay_password2){
 					this.pay.payword = this.pay_password
@@ -128,7 +127,7 @@
 			},
 			//确定所有的信息不空
 			confirm(){
-				if(this.userinfo !== null && this.userinfo_main.password !== null && this.userinfo_main.phonenumber !== null &&this.pay !== null && this.userinfo.school !== '请选择学校')
+				if(this.userinfo !== null && this.userinfo.password !== null && this.userinfo.phonenumber !== null &&this.pay !== null && this.userinfo.school !== '请选择学校')
 				{
 					this.adequate = true
 				}
@@ -138,33 +137,33 @@
 				this.affirm()
 				this.confirm()
 				if(this.adequate){
-					/*uni.request({
-						url:'',
+					uni.request({
+						url:'http://qiuxiuhao.viphk.91tunnel.com/userinfoset',
 						data:{
-							userinfo_main:this.userinfo_main,
-							userinfo:this.userinfo,
-							pay:this.pay
+							name:this.userinfo.name,
+							password:this.userinfo.password,
+							school:this.userinfo.school,
+							phonenumber:this.userinfo.phonenumber,
+							gender:this.userinfo.gender,
+							pay_password:this.pay.payword
 						},
 						success(res) {
-							uni.setStorage({
+							console.log(res.data)
+							/*uni.setStorage({
 								data:this.pay,
 								key:'pay'
 							})
 							uni.setStorage({
 								data:this.userinfo,
-								key:'userinfo'
-							})
-							uni.setStorage({
-								data:this.userinfo_main,
-								key:'userinfo_main',
+								key:'userinfo',
 								success(){
 									uni.redirectTo({
 										url:'/pages/index/index'
 									})
 								}
-							})
+							})*/
 						}
-					})*/
+					})
 				}
 				else{
 					uni.showToast({
@@ -173,6 +172,18 @@
 					})
 				}
 			}
+		},
+		onShow() {
+			uni.request({
+				url: 'http://qiuxiuhao.viphk.91tunnel.com/schoolinfo', //私人内外网穿透地址
+				header: {
+					'custom-header': 'hello' //自定义请求头信息
+				},
+				success: (res) => {
+					console.log(res.data)
+					this.school = res.data.schoolname
+				}
+			})
 		}
 	}
 </script>

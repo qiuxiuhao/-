@@ -62,12 +62,15 @@
 	export default {
 		data() {
 			return {
-				userinfo: {
-					name: 'xinyuyi',
-					gender: '男',
-					school: '中国矿业大学（北京）',
-					autograph: '你好呀',
-					avatar: '../../../static/touxiantext.png'
+				userinfo:{
+					id:'10001026',
+					phonenumber:'',
+					password:'',
+					name:'星辰',
+					gender:'男',
+					school:'中国矿业大学（北京）',
+					autograph:'小萌新',
+					avatar:'../../../static/touxiantext.png'
 				},
 				gender: ['男', '女'],
 				school: ['清华大学', '北京大学', '中国矿业大学（北京）']
@@ -88,10 +91,10 @@
 							filePath: tempFilePaths[0],
 							name: 'image',
 							formData: {
-								names: 'test'
+								id: this.userinfo.id
 							},
 							success: (uploadFileRes) => {
-								console.log(uploadFileRes.data);
+								this.userinfo.avatar = uploadFileRes.data
 							}
 						});
 					}
@@ -108,14 +111,21 @@
 			//提交修改后的信息
 			submitinfo() {
 				//将数据提交至数据库
-				/*uni.request({
+				uni.request({
 					url:'http://qiuxiuhao.viphk.91tunnel.com/submitinfo',
 					data:{
-						userinfo:this.userinfo
+						id:this.userinfo.id,
+						name:this.userinfo.name,
+						password:this.userinfo.password,
+						school:this.userinfo.school,
+						phonenumber:this.userinfo.phonenumber,
+						gender:this.userinfo.gender,
+						autograph:this.userinfo.autograph
 					},
 					success(res) {
+						console.log(res.date)
 						//将数据保存到本地
-						uni.setStorage({
+						/*uni.setStorage({
 							key:'userinfo',
 							data:this.userinfo,
 							success() {
@@ -128,27 +138,28 @@
 									icon:'none'
 								})
 							}
-						})
+						})*/
 					}
-				})*/
+				})
 			}
 
 		},
 		//初始化数据
-		/*beforeCreate() {
+		onShow() {
 			//从数据库获取所有学校的名字
 			uni.request({
-				url:'http://qiuxiuhao.viphk.91tunnel.com/schoollist',
+				url:'http://qiuxiuhao.viphk.91tunnel.com/schoolinfo',
 				success(res) {
-					this.school = res.data.schoollist
+					this.school = res.data.schoolname
 				}
 			})
-		}*/
-		//接收上一个页面的参数
-		/*onLoad(option) { //option为object类型，会序列化上个页面传递的参数
-			console.log(option.userinfo); //打印出上个页面传递的参数。
-			this.userinfo == option.userinfo
-		}*/
+			/*uni.getStorage({
+				key:'userinfo',
+				success(res) {
+					this.userinfo ==  res.data
+				}
+			})*/
+		}
 	}
 </script>
 

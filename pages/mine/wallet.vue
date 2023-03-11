@@ -20,16 +20,25 @@
 	export default {
 		data() {
 			return {
-				id:'',
+				userinfo: {
+					id: '10001026',
+					phonenumber: '',
+					password: '',
+					name: '星辰',
+					gender: '男',
+					school: '中国矿业大学（北京）',
+					autograph: '小萌新',
+					avatar: '../../../static/touxiantext.png'
+				},
 				balance:'190.01'		
 			}
 		},
-		/*beforeCreate() {
+		/*onShow() {
 			//获取本地存储的用户id
 			uni.getStorage({
-				key:'userinfo_main',
+				key:'userinfo',
 				success(res) {
-					this.id = res.data.id
+					this.userinfo = res.data
 				}
 			})
 			//向数据库获取余额

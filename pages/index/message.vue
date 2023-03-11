@@ -94,7 +94,7 @@
 			}
 		},
 		onShow() {
-			//this.currentUser = uni.getStorageSync('currentUser');
+			//this.currentUser = uni.getStorageSync('userinfo');
 			getApp().globalData.currentUser = this.currentUser;
 			if (this.goEasy.getConnectionStatus() === 'disconnected') {
 				this.connectGoEasy(); //连接goeasy

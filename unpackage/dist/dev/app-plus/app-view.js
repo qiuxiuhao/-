@@ -512,7 +512,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.status_bar{\n\theight: var(--status-bar-height);\n    width: 100%;\n\tbackground-color: #66C3E4;\n}\n.head{\n\twidth: 100%;\n\ttext-align: center;\n\tfont-size: 20px;\n\tbackground-color:  #66C3E4;\n\tpadding-bottom: 5px;\n\tfont-family: 'Courier New', Courier, monospace;\n}\n.icon1 {\n    width: 80px;\n    height: 80px;\n}\n.meau {\n    margin-top: 2px;\n    height: 100px;\n    background-color: white;\n    flex-direction: row;\n\tdisplay: flex;\n}\n", ""]);
+exports.push([module.i, "\n.status_bar {\n\theight: var(--status-bar-height);\n\twidth: 100%;\n\tbackground-color: #66C3E4;\n}\n.head {\n\twidth: 100%;\n\ttext-align: center;\n\tfont-size: 20px;\n\tbackground-color: #66C3E4;\n\tpadding-bottom: 5px;\n\tfont-family: 'Courier New', Courier, monospace;\n}\n.icon1 {\n\twidth: 80px;\n\theight: 80px;\n}\n.meau {\n\tmargin-top: 2px;\n\theight: 100px;\n\tbackground-color: white;\n\tflex-direction: row;\n\tdisplay: flex;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1166,7 +1166,7 @@ var render = function () {
               callback: function ($$v) {
                 _vm.$handleVModelEvent(5, $$v)
               },
-              expression: "userinfo.phonenumber",
+              expression: "userinfo1.phonenumber",
             },
           }),
           _c("v-uni-input", {
@@ -1177,7 +1177,7 @@ var render = function () {
               callback: function ($$v) {
                 _vm.$handleVModelEvent(6, $$v)
               },
-              expression: "userinfo.password",
+              expression: "userinfo1.password",
             },
           }),
         ],

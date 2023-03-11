@@ -5,7 +5,7 @@
 				<text>头像</text>
 			</view>
 			<view class="item_2">
-				<image  class="touxian" src="../../static/touxiantext.png"></image>
+				<image  class="touxian" :src="userinfo.avatar"></image>
 			</view>
 		</view>
 		<view class="item">
@@ -21,7 +21,7 @@
 				<text>性别</text>
 			</view>
 			<view class="item_3">
-				<text>{{userinfo.name}}</text>
+				<text>{{userinfo.gender}}</text>
 			</view>
 		</view>
 		<view class="item">
@@ -50,7 +50,16 @@
 	export default {
 		data() {
 			return {
-				userinfo:""
+				userinfo:{
+					id:'',
+					phonenumber:'',
+					password:'',
+					name:'星辰',
+					gender:'男',
+					school:'中国矿业大学（北京）',
+					autograph:'小萌新',
+					avatar:'../../static/touxiantext.png'
+				},
 			}
 		},
 		methods: {
@@ -60,13 +69,13 @@
 				})
 			}
 		},
-		beforeCreate(){
-			uni.getStorage({
+		onShow(){
+			/*uni.getStorage({
 				key:'userinfo',
 				success(res) {
 					this.userinfo ==  res.data
 				}
-			})
+			})*/
 		}
 	}
 </script>

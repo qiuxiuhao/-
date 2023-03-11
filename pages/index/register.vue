@@ -15,7 +15,7 @@
 		</view>
 		<view class=".read">
 			<switch @change="readchange" style="transform: scale(0.5);" />
-			<text>已阅读并同意相关</text><text style="color: blue;border-bottom:solid;" @click="readagree">《用户协议》</text>
+			<text>已阅读并同意相关</text><text style="color: blue;border-bottom:solid;" @click="">《用户协议》</text>
 			<text>,（未注册手机号首次登录自动注册）</text>
 		</view>
 		<button class="button_1" @click="login">登录</button>
@@ -26,14 +26,17 @@
 	export default {
 		data() {
 			return {
-				phonenumber: '',
+				phonenumber: '15717217249',
 				captcha: '',
+				exist: '',
 				captcha2: '',
 				read: false,
 				msg: '获取验证码',
-				color: 'black',
+				color: 'skyblue',
 				timer: '',
 				time: 60,
+				exit: '',
+				userinfo:{},
 			}
 		},
 		methods: {
@@ -53,7 +56,7 @@
 						} else {
 							this.time = 60
 							this.msg = '获取验证码'
-							this.color = 'black'
+							this.color = 'skyblue'
 							clearInterval(this.timer)
 						}
 					}, 1000);
@@ -75,6 +78,18 @@
 						this.captcha2 = res.data.captcha
 					}
 				})
+				uni.request({
+					url: 'http://qiuxiuhao.viphk.91tunnel.com/exist', //私人内外网穿透地址
+					data: {
+						phonenumber: this.phonenumber,
+					},
+					header: {
+						'custom-header': 'hello' //自定义请求头信息
+					},
+					success: (res) => {
+						this.exit = res.date.exist123
+					}
+				})
 			},
 			//登录or注册
 			login() {
@@ -94,10 +109,6 @@
 								//如果是老用户
 								if (res.data.userinfo !== null) {
 									//将用户信息写入本地
-									uni.setStorage({
-										key: 'userinfo_main',
-										data: res.data.userinfo_main,
-									});
 									uni.setStorage({
 										key: 'pay',
 										data: res.data.pay,
@@ -144,7 +155,6 @@
 			}
 		}
 	}
-	
 </script>
 
 <style>
