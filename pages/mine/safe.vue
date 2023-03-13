@@ -5,7 +5,7 @@
 				<text>账号</text>
 			</view>
 			<view class="item_3">
-				<text>{{userinfo_main.id}}</text>
+				<text>{{userinfo.id}}</text>
 			</view>
 		</view>
 		<view class="item" @click="goto('phonenumber_set')">
@@ -13,7 +13,7 @@
 				<text>手机号</text>
 			</view>
 			<view class="item_3">
-				<text>{{userinfo_main.phonenumber}}</text>
+				<text>{{userinfo.phonenumber}}</text>
 			</view>
 		</view>
 		<view class="item" @click="goto('password_set')">
@@ -31,23 +31,13 @@
 	export default {
 		data() {
 			return {
-				userinfo_main:{
-						id:'123456',
-						phonenumber:'',
-						password:'',
+				userinfo:{
 				}
 			}
 		},
-		//获取本地的数据
-		/*beforeCreate() {
-			uni.getStorage({
-				key:'userinfo_main',
-				success(res) {
-					this.userinfo_main = res.data
-				}
-			})
-		},*/
-		
+		onShow() {
+			this.userinfo = uni.getStorageSync('userinfo')
+		},
 		methods: {
 			//前往指定页面
 			goto(where){

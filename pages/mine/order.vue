@@ -84,7 +84,7 @@
 					source:'全部',
 					status:'全部'
 				},
-				id:'123456',
+				userinfo:{},
 				initial_goods:[
 					{
 						id:'',
@@ -126,23 +126,18 @@
 				]
 			}
 		},
-		/*beforeCreate() {
+		onShow() {
 				//从本地获取用户id
-				uni.getStorage({
-					key:'userinfo_main.id',
-					success(res) {
-						this.id = res.data
-					}
-				})
+				this.userinfo = uni.getStorageSync('userinfo')
 				//从数据库获取订单数组
 				uni.request({
 					url:'',
-					data:{id:this.id},
+					data:{id:this.ueserinfo.id},
 					success(res) {
 						this.initial_goods = res.data.goods
 					}
 				})
-		},*/
+		},
 		methods: {
 			selectscouce(e){
 				this.select.source = this.source[e.detail.value]

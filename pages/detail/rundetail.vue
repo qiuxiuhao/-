@@ -24,7 +24,7 @@
 	export default {
 		data() {
 			return {
-				id:'123457',
+				userinfo:{},
 				good:{
 					userid:'123457',
 					name:'商品1',
@@ -41,14 +41,9 @@
 			this.good_id = option.id
 		},
 		//初始化数据
-		/*beforeCreate() {
+		onShow() {
 			//从本地获取用户id
-			uni.getStorage({
-				key:'userinfo_main.id',
-				success(res) {
-					this.id = res.data
-				}
-			})
+			this.userinfo = uni.getStorageSync('userinfo')
 			//向数据库获详情
 			uni.request({
 				url:'',
@@ -57,7 +52,7 @@
 					this.good = res.data.good
 				}
 			})
-		},*/
+		},
 		methods: {
 			//联系
 			talk(){
@@ -67,15 +62,17 @@
 			},
 			//输入地址支付生成订单
 			gopay(){
-				if(this.good.userid!== this.id){
+				if(this.good.userid!== this.userinfo.id){
+					a =this.userinfo.id;b=this.good_id
 					uni.showModal({
 						content:'确认接单',
 						success:function(res){
 							if(res.confirm){
-								/*uni.request({
+								uni.request({
 									url:'',
 									data:{
-										good_id:this.good_id,
+										good_id:b,
+										id:a
 									},
 									success() {
 										uni.showToast({
@@ -83,7 +80,7 @@
 											icon:'none'
 										})
 									}
-								})*/
+								})
 							}
 						}
 					})

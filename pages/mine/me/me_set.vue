@@ -62,18 +62,19 @@
 	export default {
 		data() {
 			return {
-				userinfo:{
-					id:'10001026',
-					phonenumber:'',
-					password:'',
-					name:'星辰',
-					gender:'男',
-					school:'中国矿业大学（北京）',
-					autograph:'小萌新',
-					avatar:'../../../static/touxiantext.png'
+				userinfo: {
+					id: '10001026',
+					phonenumber: '',
+					password: '',
+					name: '星辰',
+					gender: '男',
+					school: '中国矿业大学（北京）',
+					autograph: '小萌新',
+					avatar: '../../../static/touxiantext.png'
 				},
 				gender: ['男', '女'],
-				school: ['清华大学', '北京大学', '中国矿业大学（北京）']
+				school: ['清华大学', '北京大学', '中国矿业大学（北京）'],
+				b: false,
 			}
 		},
 		methods: {
@@ -82,8 +83,8 @@
 				//选择相册图片
 				uni.chooseImage({
 					count: 1, //默认9
-					sizeType: ['original','compressed'], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ['album','camera'], //从相册选择
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album', 'camera'], //从相册选择
 					success: function(res) {
 						const tempFilePaths = res.tempFilePaths;
 						uni.uploadFile({
@@ -94,7 +95,7 @@
 								id: this.userinfo.id
 							},
 							success: (uploadFileRes) => {
-								this.userinfo.avatar = uploadFileRes.data
+								this.userinfo.avatar = uploadFileRes.data.path
 							}
 						});
 					}
@@ -111,54 +112,49 @@
 			//提交修改后的信息
 			submitinfo() {
 				//将数据提交至数据库
+				let a = this.userinfo
 				uni.request({
-					url:'http://qiuxiuhao.viphk.91tunnel.com/submitinfo',
-					data:{
-						id:this.userinfo.id,
-						name:this.userinfo.name,
-						password:this.userinfo.password,
-						school:this.userinfo.school,
-						phonenumber:this.userinfo.phonenumber,
-						gender:this.userinfo.gender,
-						autograph:this.userinfo.autograph
+					url: 'http://qiuxiuhao.viphk.91tunnel.com/submitinfo',
+					data: {
+						id: this.userinfo.id,
+						name: this.userinfo.name,
+						password: this.userinfo.password,
+						school: this.userinfo.school,
+						phonenumber: this.userinfo.phonenumber,
+						gender: this.userinfo.gender,
+						autograph: this.userinfo.autograph
 					},
 					success(res) {
-						console.log(res.date)
+						console.log(res.data)
 						//将数据保存到本地
-						/*uni.setStorage({
-							key:'userinfo',
-							data:this.userinfo,
+						uni.setStorage({
+							key: 'userinfo',
+							data: a,
 							success() {
 								uni.redirectTo({
-									url:'/pages/mine/me',
+									url: '/pages/mine/me',
 								})
 								uni.showToast({
 									title: '修改成功',
 									duration: 1000,
-									icon:'none'
+									icon: 'none'
 								})
 							}
-						})*/
+						})
 					}
 				})
 			}
-
 		},
 		//初始化数据
 		onShow() {
 			//从数据库获取所有学校的名字
 			uni.request({
-				url:'http://qiuxiuhao.viphk.91tunnel.com/schoolinfo',
+				url: 'http://qiuxiuhao.viphk.91tunnel.com/schoolinfo',
 				success(res) {
 					this.school = res.data.schoolname
 				}
 			})
-			/*uni.getStorage({
-				key:'userinfo',
-				success(res) {
-					this.userinfo ==  res.data
-				}
-			})*/
+			this.userinfo = uni.getStorageSync('userinfo')
 		}
 	}
 </script>

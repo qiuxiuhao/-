@@ -6899,7 +6899,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.item{\n\theight: 35px;\n\tpadding: 10px;\n\tborder-bottom:solid #ededed;\n\tfont-size: 18px;\n}\n", ""]);
+exports.push([module.i, "\n.item {\n\theight: 35px;\n\tpadding: 10px;\n\tborder-bottom: solid #ededed;\n\tfont-size: 18px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7189,7 +7189,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ./node_modules/css-loader/dist/runtime/api.js */ 10);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.view_1{\n\tmargin: 50px;\n}\n.input_1{\n\tmargin-top: 30px;margin-bottom: 30px;border-bottom: solid;\n}\n.input_2{\n\twidth: 300px;\n\tmargin-top: 30px;margin-bottom: 30px;border-bottom: solid;\n}\n.text_1{\n\tfont-size: 18px;\n}\n.button_1{\n\twidth: 150px;height: 40px;\n\tmargin-top: 50px;background-color:white\n}\n.button_cap{\n\tmargin-top: 10px;\n\twidth: 150px;height: 40px;background-color:skyblue;\n\tfont-size: 16px;\n}\n.cap{\n\tdisplay: flex;\n\tflex-direction: row;\n}\n", ""]);
+exports.push([module.i, "\n.view_1{\n\tmargin: 50px;\n}\n.input_1{\n\tmargin-top: 30px;margin-bottom: 30px;border-bottom: solid;\n}\n.input_2{\n\twidth: 300px;\n\tmargin-top: 30px;margin-bottom: 30px;border-bottom: solid;\n}\n.text_1{\n\tfont-size: 18px;\n}\n.button_1{\n\twidth: 150px;height: 40px;\n\tmargin-top: 50px;background-color:white\n}\n.button_cap{\n\tmargin-top: 10px;\n\twidth: 250px;height: 40px;background-color:skyblue;\n\tfont-size: 16px;\n}\n.cap{\n\tdisplay: flex;\n\tflex-direction: row;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

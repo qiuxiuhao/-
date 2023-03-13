@@ -14,7 +14,7 @@
 		</view>
 		<view class="" v-if="this.typeitems[current].type ==='失物'">
 			<view class="">
-				<image src="" mode="" class="image1"></image>
+				<image :src="good.avatar" class="image1" @click="setimage"></image>
 			</view>
 			<text>物品名称：</text>
 			<input class="input1" type="text" placeholder="输入物品名称" placeholder-class="text1" v-model="good.name">
@@ -65,7 +65,7 @@
 	export default {
 		data() {
 			return {
-				id:'',
+				userinfo:{},
 				typeitems:[
 					{type:'失物',
 					 checked:'true'},
@@ -76,7 +76,7 @@
 				current: 0,
 				good:{
 					type:'',
-					image:'',
+					avatar:'',
 					name:'',
 					address:'',
 					money:'',
@@ -84,15 +84,10 @@
 				}
 			}
 		},
-		/*beforeCreate() {
-			//从本地获取用户id
-			uni.getStorage({
-				key:'userinfo_main.id',
-				success(res) {
-					this.id = res.data
-				}
-			})
-		},*/
+		onShow() {
+				//从本地获取用户id
+				this.userinfo = uni.getStorageSync('userinfo')
+		},
 		methods: {
 			radioChange: function(evt) {
 			            for (let i = 0; i < this.typeitems.length; i++) {
@@ -103,6 +98,28 @@
 			                }
 			            }
 			},
+			setimage() {
+				//选择相册图片
+				uni.chooseImage({
+					count: 1, //默认9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album', 'camera'], //从相册选择
+					success: function(res) {
+						const tempFilePaths = res.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://qiuxiuhao.viphk.91tunnel.com/upload', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'image',
+							formData: {
+								id: this.userinfo.id
+							},
+							success: (uploadFileRes) => {
+								this.good.avatar = uploadFileRes.data.path
+							}
+						});
+					}
+				});
+			},
 			release(){
 				uni.showModal({
 					content:'确认发布',
@@ -111,7 +128,7 @@
 							//将数据交至数据库
 							/*uni.request({
 								url:'',
-								data:{	id:this.id,
+								data:{	id:this.userinfo.id,
 										good:this.good},
 								success() {
 									uni.showToast({

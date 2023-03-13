@@ -55,7 +55,7 @@
 					    success: (res) => {
 							console.log(res.data)
 					        this.contrast = res.data.contrast
-							/*this.userinfo = res.data.userinfo
+							this.userinfo = res.data.userinfo
 							//密码正确
 							if(this.contrast){
 								uni.setStorage({
@@ -80,7 +80,7 @@
 									icon:'error',
 									duration: 2000
 								});
-							}*/
+							}
 					    }
 					});
 				}

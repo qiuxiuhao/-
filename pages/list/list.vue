@@ -98,23 +98,18 @@
 			this.type = option.type
 			console.log(this.type)
 		},
-		/*beforeCreate() {
+		onShow() {
 				//从本地获取用户id
-				uni.getStorage({
-					key:'userinfo_main.id',
-					success(res) {
-						this.id = res.data
-					}
-				})
+				this.userinfo = uni.getStorageSync('userinfo')
 				//向数据库获取收藏数组
 				uni.request({
 					url:'',
-					data:{id:this.id,type:this.type},
+					data:{id:this.userinfo.id,type:this.type,school:this.userinfo.school},
 					success(res) {
 						this.initial_goods = res.data.goods
 					}
 				})
-		},*/
+		},
 		methods: {
 			gotodetail(type,id){
 				if(type === '二手'){

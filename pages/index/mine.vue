@@ -55,7 +55,7 @@
 			}
 		},
 		onShow() {
-			//this.userinfo = uni.getStorageSync('userinfo')
+			this.userinfo = uni.getStorageSync('userinfo')
 		},
 		methods: {
 			//清空本地缓存并退出登录

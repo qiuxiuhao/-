@@ -70,12 +70,7 @@
 			}
 		},
 		onShow(){
-			/*uni.getStorage({
-				key:'userinfo',
-				success(res) {
-					this.userinfo ==  res.data
-				}
-			})*/
+			this.userinfo = uni.getStorageSync('userinfo')
 		}
 	}
 </script>

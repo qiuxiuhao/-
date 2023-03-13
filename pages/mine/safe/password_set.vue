@@ -17,25 +17,15 @@
 	export default {
 		data() {
 			return {
-				userinfo_main:{
-						id:'1234',
-						phonenumber:'',
-						password:'',
-				},
+				userinfo:{},
 				password_old:'',
 				password_new1:'',
 				password_new2:'',
 			}
 		},
-		//获取本地的数据
-		/*beforeCreate() {
-			uni.getStorage({
-				key:'userinfo_main',
-				success(res) {
-					this.userinfo_main = res.data
-				}
-			})
-		},*/
+		onShow() {
+			this.userinfo = uni.getStorageSync('userinfo')
+		},
 		methods: {
 			setpassword(){
 				//原密码正确且新密码两次输入一致
@@ -43,13 +33,14 @@
 					//将数据写入数据库
 					uni.request({
 						url:'',
-						data:{password:this.password_new1},
+						data:{password:this.password_new1
+							id:this.userinfo.id},
 						success(res) {
 							this.userinfo_main.password = this.password_new1
 							//将数据写入本地
 							uni.setStorage({
-								key:'userinfo_main',
-								data:this.userinfo_main,
+								key:'userinfo',
+								data:this.userinfo,
 								success() {
 									uni.redirectTo({
 										url:'/pages/mine/safe'

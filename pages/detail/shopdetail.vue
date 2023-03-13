@@ -28,7 +28,8 @@
 	export default {
 		data() {
 			return {
-				id:'',
+				userinfo:{},
+				pay:{},
 				good:{
 					name:'商品1',
 					price:50,
@@ -47,22 +48,11 @@
 			this.good_id = option.id
 		},
 		//初始化数据
-		/*beforeCreate() {
+		onShow() {
 			//从本地获取用户id
-			uni.getStorage({
-				key:'userinfo_main.id',
-				success(res) {
-					this.id = res.data
-				}
-			})
+			this.userinfo = uni.getStorageSync('userinfo')
 			//获取支付设置
-			uni.getStorage({
-				key:'pay',
-				success(res) {
-					this.no_secret = res.data.no_secret
-					this.payword = res.data.payword
-				}
-			})
+			this.pay = uni.getStorageSync('pay')
 			//向数据库获取商品详情
 			uni.request({
 				url:'',
@@ -71,7 +61,7 @@
 					this.good = res.data.good
 				}
 			})
-		},*/
+		},
 		methods: {
 			//联系
 			talk(){

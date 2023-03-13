@@ -104,9 +104,9 @@
 				adequate:false
 			}
 		},
-		/*onLoad(e){
+		onLoad(e){
 			this.userinfo.phonenumber = e.phonenumber
-		},*/
+		},
 		methods: {
 			//选择性别
 			setgender(e){
@@ -149,7 +149,7 @@
 						},
 						success(res) {
 							console.log(res.data)
-							/*uni.setStorage({
+							uni.setStorage({
 								data:this.pay,
 								key:'pay'
 							})
@@ -161,7 +161,7 @@
 										url:'/pages/index/index'
 									})
 								}
-							})*/
+							})
 						}
 					})
 				}

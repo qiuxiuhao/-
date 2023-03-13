@@ -1,7 +1,7 @@
 <template>
 	<view class="view_1">
 		<view style="display: flex;flex-direction: row;margin-bottom: 20px;">
-			<text class="text_1">绑定的手机号:</text><text>{{phonenumber}}</text>
+			<text class="text_1">绑定的手机号:</text><text>{{userinfo.phonenumber}}</text>
 		</view>
 		<text class="text_1">验证码</text>
 		<view class="cap">
@@ -45,21 +45,11 @@
 				payword_new2:'',
 			}
 		},
-		/*onShow() {
+		onShow() {
 			//获取本地的免密设置
-			uni.getStorage({
-				key:'pay',
-				success(res) {
-					this.pay = res.data
-				}
-			})
-			uni.getStorage({
-				key:'userinfo',
-				success(res) {
-					this.userinfo = res.data
-				}
-			})
-		},*/
+			this.pay = uni.getStorageSync('pay')
+			this.userinfo = uni.getStorageSync('userinfo')
+		},
 		methods: {
 			//获取验证码
 			getcaptch(){
@@ -68,7 +58,7 @@
 					this.timer = setInterval(() => {
 						if(this.time > 0){
 							this.time = this.time - 1
-							this.msg = this.time + 's重新验证码'
+							this.msg = this.time + 's重新获取验证码'
 							this.color = '#ededed'
 						}
 						else{
@@ -80,13 +70,14 @@
 					}, 1000);
 					console.log('获取验证码')
 				}
+				this.getcap()
 			},
 			getcap() {
 				//向后端获取验证码
 				uni.request({
 					url: 'http://qiuxiuhao.viphk.91tunnel.com/captcha', //私人内外网穿透地址
 					data: {
-						phonenumber: this.phonenumber,
+						phonenumber: this.userinfo.phonenumber,
 					},
 					header: {
 						'custom-header': 'hello' //自定义请求头信息
@@ -95,51 +86,36 @@
 						this.captcha2 = res.data.captcha
 					}
 				})
-				uni.request({
-					url: 'http://qiuxiuhao.viphk.91tunnel.com/exist', //私人内外网穿透地址
-					data: {
-						phonenumber: this.phonenumber,
-					},
-					header: {
-						'custom-header': 'hello' //自定义请求头信息
-					},
-					success: (res) => {
-						this.exit = res.date.exist123
-					}
-				})
 			},
 			//提交手机号修改
 			setphonenumber(){
 				//验证码正确
 				if( this.payword_new1 === this.payword_new2 &&this.captch === this.captch_2){
 					//将数据写入数据库
-					let a =false
+					this.pay.password = this.payword_new1
+					let a =this.pay
 					uni.request({
 						url:'',
 						data:{payword:this.payword_new1},
 						success(res) {
 							//将数据写入本地
-							a = res.data.f
+							uni.setStorage({
+								key:'pay',
+								data:a,
+								success() {
+									uni.redirectTo({
+										url:'/pages/mine/wallet/pay_set'
+									})
+								}
+							})
 						}
 					})
-					if(a){
-						this.pay.password = this.payword_new1
-						uni.setStorage({
-							key:'pay',
-							data:this.pay
-							success() {
-								uni.redirectTo({
-									url:'/pages/mine/wallet/pay_set'
-								})
-							}
-						})
-					}
 				}
 				//验证码错误
 				else{
 					uni.showToast({
 						title:'验证码错误',
-						icon:'error'
+						icon:'error',
 						duration:2000
 					})
 				}
@@ -168,7 +144,7 @@
 	}
 	.button_cap{
 		margin-top: 10px;
-		width: 150px;height: 40px;background-color:skyblue;
+		width: 250px;height: 40px;background-color:skyblue;
 		font-size: 16px;
 	}
 	.cap{

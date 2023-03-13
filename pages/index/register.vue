@@ -87,7 +87,7 @@
 						'custom-header': 'hello' //自定义请求头信息
 					},
 					success: (res) => {
-						this.exit = res.date.exist123
+						this.exit = res.data.exist
 					}
 				})
 			},
@@ -97,43 +97,40 @@
 				if (this.read) {
 					//验证码正确
 					if (this.captcha === this.captcha2 && this.captcha !== null) {
-						uni.request({
-							url: 'http://qiuxiuhao.viphk.91tunnel.com/register', //仅为示例，并非真实接口地址。
-							data: {
-								phonenumber: this.phonenumber
-							},
-							header: {
-								'custom-header': 'hello' //自定义请求头信息
-							},
-							success: (res) => {
-								//如果是老用户
-								if (res.data.userinfo !== null) {
-									//将用户信息写入本地
-									uni.setStorage({
-										key: 'pay',
-										data: res.data.pay,
-									});
-									uni.setStorage({
-										key: 'userinfo',
-										data: res.data.userinfo,
-										success: function() {
-											//写入成功后进入首页
-											uni.switchTab({
-												url: "/pages/index/index"
-											})
-										}
-									});
+						if(this.exist){
+							uni.request({
+								url: 'http://qiuxiuhao.viphk.91tunnel.com/register', //仅为示例，并非真实接口地址。
+								data: {
+									phonenumber: this.phonenumber
+								},
+								header: {
+									'custom-header': 'hello' //自定义请求头信息
+								},
+								success: (res) => {
+										//将用户信息写入本地
+										uni.setStorage({
+											key: 'pay',
+											data: res.data.pay,
+										});
+										uni.setStorage({
+											key: 'userinfo',
+											data: res.data.userinfo,
+											success: function() {
+												//写入成功后进入首页
+												uni.switchTab({
+													url: "/pages/index/index"
+												})
+											}
+										});
+									//新用户进入用户信息设置页面设置	
 								}
-								//新用户进入用户信息设置页面设置
-								else {
-									uni.redirectTo({
-										url: '/pages/index/userinfo_set?phonenumber=' + this
-											.phonenumber
-									})
-								}
-							}
-						});
-
+							});
+						}
+						else {
+							uni.redirectTo({
+								url: '/pages/index/userinfo_set?phonenumber=' + this.phonenumber
+							})
+						}
 					}
 					//验证码错误
 					else {

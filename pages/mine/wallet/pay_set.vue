@@ -28,34 +28,21 @@
 					autograph: '小萌新',
 					avatar: '../../../static/touxiantext.png'
 				},
-				pay: {
-					no_secret: false,
-					password: '111111'
-				}
+				pay: {}
 			}
 		},
-		/*onShow() {
+		onShow() {
 			//获取本地的免密设置
-			uni.getStorage({
-				key:'pay',
-				success(res) {
-					this.pay = res.data
-				}
-			})
-			uni.getStorage({
-				key:'userinfo',
-				success(res) {
-					this.userinfo = res.data
-				}
-			})
-		},*/
+			this.pay = uni.getStorageSync('pay')
+			this.userinfo = uni.getStorageSync('userinfo')
+		},
 		methods: {
 			changesecret() {
 				//关闭免密
 				if (this.pay.no_secret) {
-					let b = this.pay.no_secret
+					this.pay.no_secret  = true;
 					let c = this.userinfo.id
-					let d = false;
+					let d = this.pay;
 					uni.showModal({
 						content: '是否关闭免密支付？',
 						success: function(res) {
@@ -65,27 +52,34 @@
 								uni.request({
 									url: 'http://qiuxiuhao.viphk.91tunnel.com/nopayset',
 									data: {
-										no_secret: b,
+										no_secret: false,
 										id: c
 									},
 									success() {
 										//将数据写回本地
 										console.log(res.data)
-										d = res.data.f;
+										uni.setStorage({
+											data: d,
+											key: 'pay',
+											success() {
+												uni.showToast({
+													title: '开启成功',
+													icon: 'none'
+												})
+											}
+										})
 									}
 								})
 							} 
 						}
 					})
-					this.pay.no_secret = b;
-					this.set(d);
 				}
 				//开启免密
 				else {
-					let a = this.pay.password
-					let b = this.pay.no_secret
+					let a = this.pay.password ;
+					this.pay.no_secret  = true;
 					let c = this.userinfo.id
-					let d = false;
+					let d = this.pay;
 					console.log(a)
 					uni.showModal({
 						content: '是否开启免密支付？',
@@ -96,18 +90,26 @@
 								console.log(res.content);
 								//支付密码正确
 								if (res.content === a) {
-									b = true
 									//将修改交到数据库
 									uni.request({
 										url: 'http://qiuxiuhao.viphk.91tunnel.com/nopayset',
 										data: {
-											no_secret: b,
+											no_secret: true,
 											id: c
 										},
 										success(res) {
 											//将数据写回本地
 											console.log(res.data)
-											d = res.data.f;
+											uni.setStorage({
+												data: d,
+												key: 'pay',
+												success() {
+													uni.showToast({
+														title: '开启成功',
+														icon: 'none'
+													})
+												}
+											})
 										}
 									})
 								}
@@ -120,9 +122,7 @@
 								}
 							} 
 						}
-					});
-					this.pay.no_secret = b;
-					this.set(d)		
+					});		
 				}
 			},
 			goto() {
@@ -130,20 +130,6 @@
 					url: '/pages/mine/wallet/pay_password_set'
 				})
 			},
-			set(d){
-				if (d) {
-					uni.setStorage({
-						data: this.pay,
-						key: 'pay',
-						success() {
-							uni.showToast({
-								title: '开启成功',
-								icon: 'none'
-							})
-						}
-					})
-				}
-			}
 		}
 	}
 </script>

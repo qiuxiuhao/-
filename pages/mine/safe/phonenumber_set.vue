@@ -21,25 +21,16 @@
 				color:'black',
 				timer:'',
 				time:60,
-				userinfo_main:{
-						id:'1234',
-						phonenumber:'',
-						password:'',
-				},
+				userinfo:{},
 				phonenumber_new:'',
 				captch:'',
 				captch_2:''
 			}
 		},
 		//获取本地的数据
-		/*beforeCreate() {
-			uni.getStorage({
-				key:'userinfo_main',
-				success(res) {
-					this.userinfo_main = res.data
-				}
-			})
-		},*/
+		onShow() {
+			this.userinfo = uni.getStorageSync('userinfo')
+		},
 		methods: {
 			//获取验证码
 			getcaptch(){
@@ -59,7 +50,23 @@
 						}
 					}, 1000);
 					console.log('获取验证码')
+					this.getcap()
 				}
+			},
+			getcap() {
+				//向后端获取验证码
+				uni.request({
+					url: 'http://qiuxiuhao.viphk.91tunnel.com/captcha', //私人内外网穿透地址
+					data: {
+						phonenumber: this.userinfo.phonenumber,
+					},
+					header: {
+						'custom-header': 'hello' //自定义请求头信息
+					},
+					success: (res) => {
+						this.captcha2 = res.data.captcha
+					}
+				})
 			},
 			//提交手机号修改
 			setphonenumber(){

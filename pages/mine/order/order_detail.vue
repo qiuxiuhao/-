@@ -98,8 +98,8 @@
 		<view class="buttonview">
 			<button v-if="type==='二手'||type==='代办'" class="button1" @click="contract">联系对方</button>
 			<button class="button1" @click="detail">查看详情</button>
-			<button class="button1" @click="operate(true)">确认完成</button>
-			<button class="button1" @click="operate(false)">取消订单</button>
+			<button v-if="order.status!=='已完成'" class="button1" @click="operate(true)">确认完成</button>
+			<button v-if="order.status!=='已完成'" class="button1" @click="operate(false)">取消订单</button>
 		</view>
 	</view>
 </template>
@@ -108,7 +108,7 @@
 	export default {
 		data() {
 			return {
-				id:'123456',
+				userinfo:{},
 				type:'二手',
 				order_id:'12345567890',
 				order:{
@@ -137,26 +137,19 @@
 			this.order_id = e.id
 			this.type = e.type
 		},
-		/*beforeCreate() {
-			//从本地获取用户id
-			uni.getStorage({
-				key:'userinfo_main.id',
-				success(res) {
-					this.id = res.data
-				}
-			})
-			//向数据库请求数据
-			uni.request({
-				url:'',
-				data:{
-					id:this.order_id,
-					type:this.type
-				},
-				success(res) {
-					this.order = res.data.order
-				}
-			})
-		},*/
+		onShow() {
+				//从本地获取用户id
+				this.userinfo = uni.getStorageSync('userinfo')
+				//从数据库获取订单数组
+				uni.request({
+					url:'',
+					data:{id:this.order_id,
+					type:this.type},
+					success(res) {
+						this.order = res.data.order
+					}
+				})
+		},
 		methods: {
 			contract(){
 				if(this.id === this.order.userid_from){
