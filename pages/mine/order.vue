@@ -20,7 +20,7 @@
 		</view>
 		<view>
 			<view class="" v-for="good in goods">		
-				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.id,good.type)">
+				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -32,7 +32,7 @@
 						{{good.type}}<br><text class="text5">{{good.status}}</text>
 					</view>
 				</view>
-				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.id,good.type)">
+				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -44,7 +44,7 @@
 							{{good.type}}<br><text class="text5">{{good.status}}</text>
 						</view>
 				</view>
-				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.id,good.type)">
+				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -56,7 +56,7 @@
 						{{good.type}}<br><text class="text5">{{good.status}}</text>
 					</view>
 				</view>
-				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.id,good.type)">
+				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -87,7 +87,8 @@
 				userinfo:{},
 				initial_goods:[
 					{
-						id:'',
+						good_id:'27',
+						order_id:'2777'
 						type:'失物',
 						name:'失物1',
 						time:'2022-11-9 10:10:10',
@@ -95,7 +96,8 @@
 						release_id:'123456'
 					},
 					{
-						id:'',
+						order_id:'2777'
+						good_id:'1111',
 						type:'二手',
 						name:'商品1',
 						time:'2022-11-9 10:10:10',
@@ -103,21 +105,27 @@
 						release_id:'12345'
 					},
 					{
-						id:'',
+						order_id:'2777'
+						good_id:'111',
 						type:'代办',
+						release_id:'',
 						name:'代办名称1',
 						time:'2022-11-9 10:10:10',
 						status:'执行中'
 					},
 					{
-						id:'',
+						order_id:'2777'
+						good_id:'11233',
+						release_id:'',
 						type:'招领',
 						name:'物品1',
 						time:'2022-11-9 10:10:10',
 						status:'已完成'
 					},
 					{
-						id:'',
+						order_id:'2777'
+						good_id:'1345',
+						release_id:'',
 						type:'失物',
 						name:'失物2',
 						time:'2022-11-9 10:10:10',
@@ -129,11 +137,12 @@
 		onShow() {
 				//从本地获取用户id
 				this.userinfo = uni.getStorageSync('userinfo')
+				console.log(this.userinfo.id)
 				//从数据库获取订单数组
 				uni.request({
 					url:'',
-					data:{id:this.ueserinfo.id},
-					success(res) {
+					data:{id:this.userinfo.id},
+					success:res=> {
 						this.initial_goods = res.data.goods
 					}
 				})
@@ -173,24 +182,24 @@
 					}
 					else if(this.select.source === '我发布的'){
 						if(this.select.status === '全部'){
-							return  p.name.indexOf(this.keyword) !== -1 && p.release_id === this.id
+							return  p.name.indexOf(this.keyword) !== -1 && p.release_id === this.userinfo.id
 						}
 						else if(this.select.status === '已完成'){
-							return  p.name.indexOf(this.keyword) !== -1 && p.status ==='已完成' 	&& p.release_id === this.id
+							return  p.name.indexOf(this.keyword) !== -1 && p.status ==='已完成' 	&& p.release_id ===  this.userinfo.id
 						}
 						else{
-							return  p.name.indexOf(this.keyword) !== -1 && p.status !=='已完成'	&& p.release_id === this.id
+							return  p.name.indexOf(this.keyword) !== -1 && p.status !=='已完成'	&& p.release_id ===  this.userinfo.id
 						}
 					}
 					else{
 						if(this.select.status === '全部'){
-							return  p.name.indexOf(this.keyword) !== -1 && p.release_id !== this.id
+							return  p.name.indexOf(this.keyword) !== -1 && p.release_id !==  this.userinfo.id
 						}
 						else if(this.select.status === '已完成'){
-							return  p.name.indexOf(this.keyword) !== -1 && p.status ==='已完成' 	&& p.release_id !== this.id
+							return  p.name.indexOf(this.keyword) !== -1 && p.status ==='已完成' 	&& p.release_id !==  this.userinfo.id
 						}
 						else{
-							return  p.name.indexOf(this.keyword) !== -1 && p.status !=='已完成'	&& p.release_id !== this.id
+							return  p.name.indexOf(this.keyword) !== -1 && p.status !=='已完成'	&& p.release_id !==  this.userinfo.id
 						}
 					}
                 })

@@ -137,8 +137,10 @@
 				this.affirm()
 				this.confirm()
 				if(this.adequate){
+					let a =this.pay
+					let b =this.userinfo
 					uni.request({
-						url:'http://qiuxiuhao.viphk.91tunnel.com/userinfoset',
+						url:'http://qiuxiuhaocloud.viphk.91tunnel.com/userinfoset',
 						data:{
 							name:this.userinfo.name,
 							password:this.userinfo.password,
@@ -150,15 +152,15 @@
 						success(res) {
 							console.log(res.data)
 							uni.setStorage({
-								data:this.pay,
+								data:a,
 								key:'pay'
 							})
 							uni.setStorage({
-								data:this.userinfo,
+								data:b,
 								key:'userinfo',
 								success(){
-									uni.redirectTo({
-										url:'/pages/index/index'
+									uni.switchTab({
+										url:"/pages/index/index"
 									})
 								}
 							})
@@ -175,7 +177,7 @@
 		},
 		onShow() {
 			uni.request({
-				url: 'http://qiuxiuhao.viphk.91tunnel.com/schoolinfo', //私人内外网穿透地址
+				url: 'http://qiuxiuhaocloud.viphk.91tunnel.com/schoolinfo', //私人内外网穿透地址
 				header: {
 					'custom-header': 'hello' //自定义请求头信息
 				},

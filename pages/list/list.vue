@@ -8,22 +8,10 @@
 				<view v-if="type==='失物招领'">
 					<view class="item" @click="gotodetail(good.type,good.id)">
 						<view class="left">
-							<img src="" class="imag1">
+							<img :src="good.avatar" class="imag1">
 							<view class="">
 								<text class="text1">{{good.name}}</text><br>
-								<text class="text2">{{good.time}}</text>
-							</view>
-						</view>
-						<view class="right">
-							{{good.type}}
-						</view>
-					</view>
-					<view class="item" @click="gotodetail(good.type,good.id)">
-						<view class="left">
-							<img src="" class="imag1">
-							<view class="">
-								<text class="text1">{{good.name}}</text><br>
-								<text class="text2">{{good.time}}</text>
+								<text class="text2">{{good.date}}</text>
 							</view>
 						</view>
 						<view class="right">
@@ -33,10 +21,10 @@
 				</view>
 				<view v-if="type==='代办'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
-						<img src="" class="imag1">
+						<img :src="good.avatar" class="imag1">
 						<view class="">
 							<text class="text1">{{good.name}}</text><br>
-							<text class="text2">{{good.time}}</text>
+							<text class="text2">{{good.date}}</text>
 						</view>
 					</view>
 					<view class="right">
@@ -45,10 +33,10 @@
 				</view>
 				<view v-if="type==='二手'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
-						<img src="" class="imag1">
+						<img :src="good.avatar" class="imag1">
 						<view class="">
 							<text class="text1">{{good.name}}</text><br>
-							<text class="text2">{{good.time}}</text>
+							<text class="text2">{{good.date}}</text>
 						</view>
 					</view>
 					<view class="right">
@@ -101,12 +89,15 @@
 		onShow() {
 				//从本地获取用户id
 				this.userinfo = uni.getStorageSync('userinfo')
+				console.log(this.type)
+				console.log(this.userinfo.school)
 				//向数据库获取收藏数组
 				uni.request({
-					url:'',
-					data:{id:this.userinfo.id,type:this.type,school:this.userinfo.school},
-					success(res) {
-						this.initial_goods = res.data.goods
+					url:'http://qiuxiuhao.viphk.91tunnel.com/lossinfo',
+					data:{type:this.type,school:this.userinfo.school},
+					success:res=>{
+						this.initial_goods = res.data
+						console.log(res.data)
 					}
 				})
 		},

@@ -30,26 +30,26 @@
 					autograph: '小萌新',
 					avatar: '../../../static/touxiantext.png'
 				},
-				balance:'190.01'		
+				balance:''		
 			}
 		},
-		/*onShow() {
+		onShow() {
 			//获取本地存储的用户id
-			uni.getStorage({
-				key:'userinfo',
-				success(res) {
-					this.userinfo = res.data
-				}
-			})
+			this.userinfo = uni.getStorageSync('userinfo')
+			//console.log(this.userinfo)
 			//向数据库获取余额
 			uni.request({
-				url:'',
-				data:{id:this.id},
-				success(res) {
-					this.balance = res.data.balance
+				url:'http://qiuxiuhao.viphk.91tunnel.com/balanceinfo',
+				data:{id:this.userinfo.id},
+				success:res=>{
+					//a  = res.data.balance
+					console.log(res.data.balance)
+					//console.log(a)
+					this.balance =res.data.balance 
+					//console.log(this.balance1)
 				}
-			})
-		},*/
+			})	
+		},
 		methods: {
 			//前往指定页面
 			goto(where){

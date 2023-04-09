@@ -28,34 +28,37 @@
 					autograph: '小萌新',
 					avatar: '../../../static/touxiantext.png'
 				},
-				pay: {}
+				pay: {
+					no_secret:true,
+					password:'123456'
+				}
 			}
 		},
 		onShow() {
 			//获取本地的免密设置
-			this.pay = uni.getStorageSync('pay')
+			//this.pay = uni.getStorageSync('pay')
 			this.userinfo = uni.getStorageSync('userinfo')
 		},
 		methods: {
 			changesecret() {
 				//关闭免密
 				if (this.pay.no_secret) {
-					this.pay.no_secret  = true;
+					this.pay.no_secret  = false;
 					let c = this.userinfo.id
 					let d = this.pay;
 					uni.showModal({
 						content: '是否关闭免密支付？',
 						success: function(res) {
 							if (res.confirm) {
-								b = false
+								let b = false
 								//将修改交到数据库
 								uni.request({
-									url: 'http://qiuxiuhao.viphk.91tunnel.com/nopayset',
+									url: 'http://qiuxiuhaocloud.viphk.91tunnel.com/nopayset',
 									data: {
 										no_secret: false,
 										id: c
 									},
-									success() {
+									success(res) {
 										//将数据写回本地
 										console.log(res.data)
 										uni.setStorage({
@@ -76,6 +79,7 @@
 				}
 				//开启免密
 				else {
+					console.log(this.pay.password);
 					let a = this.pay.password ;
 					this.pay.no_secret  = true;
 					let c = this.userinfo.id
@@ -92,7 +96,7 @@
 								if (res.content === a) {
 									//将修改交到数据库
 									uni.request({
-										url: 'http://qiuxiuhao.viphk.91tunnel.com/nopayset',
+										url: 'http://qiuxiuhaocloud.viphk.91tunnel.com/nopayset',
 										data: {
 											no_secret: true,
 											id: c

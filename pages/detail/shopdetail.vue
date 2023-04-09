@@ -2,13 +2,13 @@
 	<view>
 		<!--商品图片-->
 		<view class="image1">
-			<image src="../../static/vue.png" class="image2"></image>
+			<image :src="good.avatar" class="image2"></image>
 		</view>
 		<!--商品详情-->
 		<view class="detailview">
-			<text class="nametext">{{good.name}}</text><br>
+			<text class="nametext">{{good.commodityName}}</text><br>
 			<text class="pricetext">￥：{{good.price}}</text><br>
-			<text class="timetext">{{good.time}}</text><br>
+			<text class="timetext">{{good.date}}</text><br>
 			<text class="detailtext">{{good.detail}}</text>
 		</view>
 		<!--联系商家-->
@@ -53,12 +53,14 @@
 			this.userinfo = uni.getStorageSync('userinfo')
 			//获取支付设置
 			this.pay = uni.getStorageSync('pay')
+			console.log(this.pay)
 			//向数据库获取商品详情
 			uni.request({
-				url:'',
+				url:'http://qiuxiuhao.viphk.91tunnel.com/commodity_id',
 				data:{id:this.good_id,type:this.good_type},
-				success(res) {
-					this.good = res.data.good
+				success:res=>{
+					this.good = res.data
+					console.log(this.good)
 				}
 			})
 		},
@@ -75,57 +77,73 @@
 					content:'确认支付',
 					editable:true,
 					placeholderText:'请输入地址',
-				    success:function(res){
+				    success:res=>{
 						//确认提交
 				    	if(res.confirm){
 							this.adress = res.content
-							if(this.no_secret){		//免密支付
-								/*uni.request({
-									url:'',
+							if(this.pay.no_secret){		//免密支付
+								uni.request({
+									url:'http://qiuxiuhao.viphk.91tunnel.com/create_shopping',
 									data:{
-										good_id:this.good_id,
-										user_id:this.id,
-										adress:this.adress,
-										payword:this.payword
+										good_id:this.good.commodityId,
+										user_id:this.userinfo.id,
+										address:this.adress,
 									},
-									success() {
-										uni.showToast({
-											title:'下单成功',
-											icon:'none'
-										})
+									success:res=>{
+										if(res.data.f){
+											uni.showToast({
+												title:'下单成功',
+												icon:'none'
+											})
+										}	
+										else{
+											uni.showToast({
+												title:'余额不足',
+												icon:'none'
+											})
+										}
 									}
-								})*/
+								})
 							}
 							else{//输入密码
 								uni.showModal({
 									content:'输入支付密码',
 									editable:true,
-									success(res){
+									success:res=>{
 										if(res.confirm){
+											console.log(res.content)
+											console.log(this.pay.payword)
+											if(this.pay.payword===parseInt(res.content)){
+												uni.request({
+													url:'http://qiuxiuhao.viphk.91tunnel.com/create_shopping',
+													data:{
+														good_id:this.good.commodityId,
+														user_id:this.userinfo.id,
+														address:this.adress,
+													},
+													success:res=> {
+														if(res.data.f){
+															uni.showToast({
+																title:'下单成功',
+																icon:'none'
+															})
+														}	
+														else{
+															uni.showToast({
+																title:'余额不足',
+																icon:'none'
+															})
+														}
+													}
+												})
+											}
 											//向数据库交订单
-											/*uni.request({
-												url:'',
-												data:{
-													good_id:this.good_id,
-													user_id:this.id,
-													adress:this.adress
-													payword:res.content
-												},
-												success(res) {
-													if(res.date.oder){
-														uni.showToast({
-															title:'下单成功',
-															icon:'none'
-														})
-													}
-													else{
-														uni.showToast({
-															title:'密码错误',
-															icon:'error'
-														})
-													}
-												}
-											})*/
+											else{
+												uni.showToast({
+													title:'密码错误',
+													icon:'error'
+												})
+											}
 										}
 									}
 								})

@@ -1,15 +1,18 @@
 <template>
 	<view>
 		<!--商品详情-->
+		<view class="image1">
+			<image :src="good.avatar" class="image2"></image>
+		</view>
 		<view class="detailview">
 			<text class="nametext">{{good.name}}</text><br>
 			<text class="pricetext">￥：{{good.price}}</text><br>
-			<text class="timetext">{{good.time}}</text><br>
+			<text class="timetext">{{good.date}}</text><br>
 			<text class="detailtext">{{good.detail}}</text>
 		</view>
 		<!--联系商家-->
 		<view class="contact" @click="talk">
-			<image src="../../static/contract.png" class="image3"></image><br>
+			<img src="../../static/contract.png" class="image3"></img><br>
 			<text class="text3">联系卖家</text>
 		</view>
 		<!--商品结算-->
@@ -46,10 +49,11 @@
 			this.userinfo = uni.getStorageSync('userinfo')
 			//向数据库获详情
 			uni.request({
-				url:'',
+				url:'http://qiuxiuhao.viphk.91tunnel.com/commission_id',
 				data:{id:this.good_id,type:this.good_type},
-				success(res) {
-					this.good = res.data.good
+				success:res=> {
+					this.good = res.data
+					console.log(this.good)
 				}
 			})
 		},

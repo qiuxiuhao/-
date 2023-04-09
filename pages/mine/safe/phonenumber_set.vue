@@ -58,30 +58,33 @@
 				uni.request({
 					url: 'http://qiuxiuhao.viphk.91tunnel.com/captcha', //私人内外网穿透地址
 					data: {
-						phonenumber: this.userinfo.phonenumber,
+						phonenumber: this.phonenumber_new,
 					},
 					header: {
 						'custom-header': 'hello' //自定义请求头信息
 					},
 					success: (res) => {
-						this.captcha2 = res.data.captcha
+						this.captch_2 = res.data.captcha
+						console.log(res.data.captcha)
 					}
 				})
 			},
 			//提交手机号修改
 			setphonenumber(){
 				//验证码正确
-				/*if(this.captch === this.captch_2){
+				if(this.captch === this.captch_2){
 					//将数据写入数据库
 					uni.request({
-						url:'',
-						data:{phonenumber:this.phonenumber_new},
+						url:'http://qiuxiuhaocloud.viphk.91tunnel.com/phonenumberset',
+						data:{
+							id:this.userinfo.id,
+							phonenumber:this.phonenumber_new},
 						success(res) {
-							this.userinfo_main.phonenumber = this.phonenumber_new
+							this.userinfo.phonenumber = this.phonenumber_new
 							//将数据写入本地
 							uni.setStorage({
-								key:'userinfo_main',
-								data:this.userinfo_main,
+								key:'userinfo',
+								data:this.userinfo,
 								success() {
 									uni.redirectTo({
 										url:'/pages/mine/safe'
@@ -92,14 +95,13 @@
 					})
 				}
 				//验证码错误
-				else(){
+				else{
 					uni.showToast({
 						title:'验证码错误',
-						icon:'error'
+						icon:'error',
 						duration:2000
 					})
 				}
-				*/
 			}
 		}
 	}

@@ -67,7 +67,7 @@
 			getcap() {
 				//向后端获取验证码
 				uni.request({
-					url: 'http://qiuxiuhao.viphk.91tunnel.com/captcha', //私人内外网穿透地址
+					url: 'http://qiuxiuhaocloud.viphk.91tunnel.com/captcha', //私人内外网穿透地址
 					data: {
 						phonenumber: this.phonenumber,
 					},
@@ -79,7 +79,7 @@
 					}
 				})
 				uni.request({
-					url: 'http://qiuxiuhao.viphk.91tunnel.com/exist', //私人内外网穿透地址
+					url: 'http://qiuxiuhaocloud.viphk.91tunnel.com/exist', //私人内外网穿透地址
 					data: {
 						phonenumber: this.phonenumber,
 					},
@@ -88,6 +88,7 @@
 					},
 					success: (res) => {
 						this.exit = res.data.exist
+						console.log(this.exit)
 					}
 				})
 			},
@@ -99,7 +100,7 @@
 					if (this.captcha === this.captcha2 && this.captcha !== null) {
 						if(this.exist){
 							uni.request({
-								url: 'http://qiuxiuhao.viphk.91tunnel.com/register', //仅为示例，并非真实接口地址。
+								url: 'http://qiuxiuhaocloud.viphk.91tunnel.com/register', //仅为示例，并非真实接口地址。
 								data: {
 									phonenumber: this.phonenumber
 								},

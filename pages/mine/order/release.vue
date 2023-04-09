@@ -7,7 +7,7 @@
 			<radio-group class="typeradio" @change="radioChange">
 				<label class="item1" v-for="(item,index) in typeitems" :key="item.value">
 					<view style="display: flex; flex-direction: row;">
-						<radio :value="item.type" :checked="index === current" /><view>{{item.type}}</view>
+						<radio :value="item.type" /><view>{{item.type}}</view>
 					</view>
 				</label>
 			</radio-group>
@@ -26,7 +26,7 @@
 		</view>
 		<view class="" v-if="this.typeitems[current].type ==='招领'">
 			<view class="">
-				<image src="" mode="" class="image1"></image>
+				<image src="" mode="" class="image1" @click="setimage"></image>
 			</view>
 			<text>物品名称：</text>
 			<input class="input1" type="text" placeholder="输入物品名称" placeholder-class="text1" v-model="good.name">
@@ -46,7 +46,7 @@
 		</view>
 		<view class="" v-if="this.typeitems[current].type ==='二手'">
 			<view class="">
-				<image src="" mode="" class="image1"></image>
+				<image src="" mode="" class="image1" @click="setimage"></image>
 			</view>
 			<text>商品名称：</text>
 			<input class="input1" type="text" placeholder="输入商品名称" placeholder-class="text1" v-model="good.name">
@@ -68,7 +68,8 @@
 				userinfo:{},
 				typeitems:[
 					{type:'失物',
-					 checked:'true'},
+					 //checked:'true',
+					 },
 					{type:'招领'},
 					{type:'二手'},
 					{type:'代办'},
@@ -87,59 +88,136 @@
 		onShow() {
 				//从本地获取用户id
 				this.userinfo = uni.getStorageSync('userinfo')
+				console.log(this.userinfo)
 		},
 		methods: {
-			radioChange: function(evt) {
+			radioChange(evt) {
 			            for (let i = 0; i < this.typeitems.length; i++) {
 			                if (this.typeitems[i].type === evt.detail.value) {
 			                    this.current = i;
-								this.good.type = this.typeitems[this.current]
+								if(this.current===0)
+									this.good.type = "失物"
+								else if(this.current===1)
+									this.good.type = "招领"
+								else if(this.current===2)
+									this.good.type = "二手"
+								else if(this.current===3)
+									this.good.type = "代办"
+									//this.good.type =this.typeitems[i]
+								console.log(this.current)
+								console.log(this.good.type)
 			                    break;
 			                }
 			            }
 			},
 			setimage() {
 				//选择相册图片
+				let a =this.userinfo.id
 				uni.chooseImage({
 					count: 1, //默认9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album', 'camera'], //从相册选择
-					success: function(res) {
+					success: res=>{
 						const tempFilePaths = res.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://qiuxiuhao.viphk.91tunnel.com/upload', //仅为示例，非真实的接口地址
+							url: 'https://www.cloudproject.top/upload', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'image',
 							formData: {
-								id: this.userinfo.id
+								id: a,
 							},
-							success: (uploadFileRes) => {
-								this.good.avatar = uploadFileRes.data.path
+							success: uploadFileRes=>{
+								this.good.avatar = uploadFileRes.data
+								console.log(this.good.avatar)
 							}
 						});
 					}
 				});
 			},
 			release(){
+				let a =this.userinfo.id
+				console.log(this.userinfo.id)
 				uni.showModal({
 					content:'确认发布',
-				    success:function(res){
+				    success:res=>{
 				    	if(res.confirm){
 							//将数据交至数据库
-							/*uni.request({
-								url:'',
-								data:{	id:this.userinfo.id,
-										good:this.good},
-								success() {
-									uni.showToast({
-										title:'发布成功',
-										icon:'none'
-									})
-									uni.redirectTo({
-										url:'/pages/mine/order'
-									})
-								}
-							})*/
+							if(this.good.type==="失物"||this.good.type==="招领"){
+								uni.request({
+									url:'http://qiuxiuhao.viphk.91tunnel.com/create_loss',
+									data:{	id:this.userinfo.id,
+											type:this.good.type,
+											name:this.good.name,
+											address:this.good.address,
+											detail:this.good.detail,
+											school:this.userinfo.school,
+											avatar:this.good.avatar
+											},
+									success() {
+										uni.showToast({
+											title:'发布成功',
+											icon:'none'
+										})
+										uni.redirectTo({
+											url:'/pages/mine/order'
+										})
+									}
+								})
+							}
+							else if(this.good.type==="二手"){
+								uni.request({
+									url:'http://qiuxiuhao.viphk.91tunnel.com/create_commodity',
+									data:{	id:this.userinfo.id,
+											//type:this.good.type,
+											name:this.good.name,
+											price:this.good.money,
+											detail:this.good.detail,
+											school:this.userinfo.school,
+											avatar:this.good.avatar
+											},
+									success() {
+										uni.showToast({
+											title:'发布成功',
+											icon:'none'
+										})
+										uni.redirectTo({
+											url:'/pages/mine/order'
+										})
+									}
+								})
+							}
+							else if(this.good.type==="代办"){
+								uni.request({
+									url:'http://qiuxiuhao.viphk.91tunnel.com/create_commission',
+									data:{	id:this.userinfo.id,
+											//type:this.good.type,
+											name:this.good.name,
+											price:this.good.money,
+											//address:this.good.address,
+											detail:this.good.detail,
+											school:this.userinfo.school,
+											//avatar:this.good.avatar
+											},
+									success:res=>{
+										console.log(res.data)
+										if(res.data.f==="false"){
+											uni.showToast({
+												title:'发布失物，余额不足',
+												icon:'none'
+											})
+										}
+										if(res.data.f==="true"){
+											uni.showToast({
+												title:'发布成功',
+												icon:'none'
+											})
+										}
+										//uni.redirectTo({
+										//	url:'/pages/mine/order'
+										//})
+									}
+								})
+							}
 						}else if(res.cancel){
 							uni.redirectTo({
 								url:'/pages/mine/order'

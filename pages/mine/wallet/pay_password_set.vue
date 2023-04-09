@@ -49,6 +49,7 @@
 			//获取本地的免密设置
 			this.pay = uni.getStorageSync('pay')
 			this.userinfo = uni.getStorageSync('userinfo')
+			console.log(this.pay)
 		},
 		methods: {
 			//获取验证码
@@ -75,7 +76,7 @@
 			getcap() {
 				//向后端获取验证码
 				uni.request({
-					url: 'http://qiuxiuhao.viphk.91tunnel.com/captcha', //私人内外网穿透地址
+					url: 'http://qiuxiuhaocloud.viphk.91tunnel.com/captcha', //私人内外网穿透地址
 					data: {
 						phonenumber: this.userinfo.phonenumber,
 					},
@@ -83,7 +84,8 @@
 						'custom-header': 'hello' //自定义请求头信息
 					},
 					success: (res) => {
-						this.captcha2 = res.data.captcha
+						this.captch_2 = res.data.captcha
+						console.log(this.captch_2)
 					}
 				})
 			},
@@ -95,8 +97,10 @@
 					this.pay.password = this.payword_new1
 					let a =this.pay
 					uni.request({
-						url:'',
-						data:{payword:this.payword_new1},
+						url:'http://qiuxiuhaocloud.viphk.91tunnel.com/payset',
+						data:{
+							id:this.userinfo.id,
+							payword:this.payword_new1},
 						success(res) {
 							//将数据写入本地
 							uni.setStorage({

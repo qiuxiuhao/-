@@ -25,22 +25,25 @@
 		},
 		onShow() {
 			this.userinfo = uni.getStorageSync('userinfo')
+			console.log(this.userinfo)
 		},
 		methods: {
 			setpassword(){
 				//原密码正确且新密码两次输入一致
-				/*if(this.userinfo_main.password===this.password_old && this.password_new1 === this.password_new2){
+				if(this.userinfo.password===this.password_old && this.password_new1 === this.password_new2){
 					//将数据写入数据库
+					let a =this.password_new1
+					this.userinfo.password = a
+					let b = this.userinfo
 					uni.request({
-						url:'',
-						data:{password:this.password_new1
+						url:'http://qiuxiuhaocloud.viphk.91tunnel.com/passwordset',
+						data:{password:this.password_new1,
 							id:this.userinfo.id},
 						success(res) {
-							this.userinfo_main.password = this.password_new1
 							//将数据写入本地
 							uni.setStorage({
 								key:'userinfo',
-								data:this.userinfo,
+								data:b,
 								success() {
 									uni.redirectTo({
 										url:'/pages/mine/safe'
@@ -51,14 +54,13 @@
 					})
 				}
 				//原密码错误
-				else if(this.userinfo_main.password!==this.password_old){
+				else if(this.userinfo.password!==this.password_old){
 					uni.showToast({
 						title:'原密码错误',
-						icon:'error'
+						icon:'error',
 						duration:2000
 					})
 				}
-				*/
 			}
 		}
 	}

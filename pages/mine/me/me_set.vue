@@ -70,32 +70,37 @@
 					gender: '男',
 					school: '中国矿业大学（北京）',
 					autograph: '小萌新',
-					avatar: '../../../static/touxiantext.png'
+					avatar:"",
 				},
 				gender: ['男', '女'],
 				school: ['清华大学', '北京大学', '中国矿业大学（北京）'],
 				b: false,
+				hhh:''
 			}
 		},
 		methods: {
 			//设置头像
 			setimage() {
+				let a =this.userinfo.id
 				//选择相册图片
 				uni.chooseImage({
 					count: 1, //默认9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album', 'camera'], //从相册选择
-					success: function(res) {
+					success: res=>{
 						const tempFilePaths = res.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://qiuxiuhao.viphk.91tunnel.com/upload', //仅为示例，非真实的接口地址
+							url: 'https://www.cloudproject.top/upload', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'image',
 							formData: {
-								id: this.userinfo.id
+								id: a,
 							},
-							success: (uploadFileRes) => {
-								this.userinfo.avatar = uploadFileRes.data.path
+							success: uploadFileRes=>{
+								console.log(uploadFileRes.data)
+								this.hhh = uploadFileRes.data
+								this.userinfo.avatar =String(this.hhh)
+								console.log(this.userinfo.avatar)
 							}
 						});
 					}
@@ -143,18 +148,24 @@
 						})
 					}
 				})
+			},
+			getschool(){
+				let a;
+				uni.request({
+					url: 'http://qiuxiuhao.viphk.91tunnel.com/schoolinfo',
+					success:res=> {
+						this.school = res.data.schoolname
+						console.log(this.school)
+					}
+				});
+				//console.log(a)
 			}
 		},
 		//初始化数据
 		onShow() {
 			//从数据库获取所有学校的名字
-			uni.request({
-				url: 'http://qiuxiuhao.viphk.91tunnel.com/schoolinfo',
-				success(res) {
-					this.school = res.data.schoolname
-				}
-			})
 			this.userinfo = uni.getStorageSync('userinfo')
+			this.getschool()
 		}
 	}
 </script>

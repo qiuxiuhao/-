@@ -2,7 +2,7 @@
 	<view>
 		<!--商品图片-->
 		<view class="image1">
-			<image src="../../static/vue.png" class="image2"></image>
+			<image :src="good.avatar" class="image2"></image>
 		</view>
 		<!--商品详情-->
 		<view class="detailview">
@@ -45,17 +45,18 @@
 		//接受上一个页面的传参
 		onLoad(option) {
 			this.good_id = option.id
+			console.log(this.good_id)
 		},
 		//初始化数据
 		onShow() {
 			//从本地获取用户id
-			
 			//向数据库获详情
 			uni.request({
-				url:'',
+				url:'http://qiuxiuhao.viphk.91tunnel.com/loss_id',
 				data:{id:this.good_id,type:this.good_type},
-				success(res) {
-					this.good = res.data.good
+				success:res=>{
+					this.good = res.data
+					console.log(this.good)
 				}
 			})
 		},
@@ -68,6 +69,7 @@
 			},
 			//输入地址支付生成订单
 			gopay(){
+				console.log(this.good)
 				if(this.good.userid=== this.id){
 					uni.showModal({
 						content:'确认完成',

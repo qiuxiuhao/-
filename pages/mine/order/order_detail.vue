@@ -112,7 +112,7 @@
 				type:'二手',
 				order_id:'12345567890',
 				order:{
-					good_id:'123',
+					good_id:'27',
 					status:'已完成',
 					user_from:'星辰',
 					userid_from:'123456',
@@ -141,14 +141,16 @@
 				//从本地获取用户id
 				this.userinfo = uni.getStorageSync('userinfo')
 				//从数据库获取订单数组
-				uni.request({
-					url:'',
-					data:{id:this.order_id,
-					type:this.type},
-					success(res) {
-						this.order = res.data.order
-					}
-				})
+				if(this.oder_id!==0){
+					uni.request({
+						url:'',
+						data:{id:this.order_id,
+						type:this.type},
+						success(res) {
+							this.order = res.data.order
+						}
+					})
+				}
 		},
 		methods: {
 			contract(){
