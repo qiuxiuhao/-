@@ -25,8 +25,11 @@
 			<view class="item"  @click="goto('Collection')">
 				<text >我的收藏</text>
 			</view>
+			<view class="item"  @click="goto('mrelease')">
+				<text >我的发布</text>
+			</view>
 			<view class="item"  @click="goto('order')">
-				<text >业务中心</text>
+				<text >我的订单</text>
 			</view>
 			<view class="item"  @click="goto('advice')">
 				<text >意见反馈</text>

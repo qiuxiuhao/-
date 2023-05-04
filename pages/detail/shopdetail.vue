@@ -18,7 +18,8 @@
 		</view>
 		<!--商品结算-->
 		<view class="jiesuan">
-			<button class="button1">加入收藏</button>
+			<button v-if="col===false" class="button1" @click="colect">加入收藏</button>
+			<button v-else-if="col===true" class="button1" @click="delcolect">取消收藏</button>
 			<button class="button1" @click="gopay">立即购买</button>
 		</view>
 	</view>
@@ -39,6 +40,7 @@
 				good_id:'',
 				good_type:'二手',
 				adress:'',
+				col:false,
 				no_secret:false,
 				payword:'123456',
 			}
@@ -61,6 +63,19 @@
 				success:res=>{
 					this.good = res.data
 					console.log(this.good)
+				}
+			})
+			uni.request({
+				url:'http://qiuxiuhao.viphk.91tunnel.com/is_favorite',
+				data:{
+					type:this.good_type,
+					id:this.userinfo.id,
+					goodid:this.good_id
+				},
+				success:res=>{
+					this.col = res.data.f
+					console.log(this.good.type)
+					console.log(this.col)
 				}
 			})
 		},
@@ -152,6 +167,40 @@
 					}
 				})	
 			},
+			colect(){
+				uni.request({
+					url:'http://qiuxiuhao.viphk.91tunnel.com/create_favorite',
+					data:{
+						goodid:this.good_id,
+						type:this.good.type,
+						id:this.userinfo.id,
+						avatar:this.good.avatar,
+					},
+					success() {
+						uni.showToast({
+							title:'收藏成功',
+							icon:'none'
+						})
+					}
+				})
+			},
+			delcolect(){
+				uni.request({
+					url:'http://qiuxiuhao.viphk.91tunnel.com/del_favorite',
+					data:{
+						goodid:this.good_id,
+						type:this.good.type,
+						id:this.userinfo.id,
+						//avatar:this.good.avatar,
+					},
+					success() {
+						uni.showToast({
+							title:'取消成功',
+							icon:'none'
+						})
+					}
+				})
+			}
 		}
 	}
 </script>

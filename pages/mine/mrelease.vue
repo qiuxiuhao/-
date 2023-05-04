@@ -2,10 +2,11 @@
 	<view>
 		<view class="serach">
 			<input type="text" class="keyinput" placeholder="输入关键词" v-model="keyword">
+			<button class="button_1" @click="release">新增发布</button>
 		</view>
 		<view>
 			<view class="" v-for="good in goods">		
-				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.orderId,good.type)">
+				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -14,10 +15,12 @@
 						</view>
 					</view>
 					<view class="right">
-						{{good.type}}<br><text class="text5">{{good.status}}</text>
+						{{good.type}}<br>
+						<text v-if="good.status===0" class="text5">未完成</text>
+						<text v-else-if="good.status===1" class="text5">已完成</text>
 					</view>
 				</view>
-				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.orderId,good.type)">
+				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -26,10 +29,12 @@
 						</view>
 					</view>
 						<view class="right">
-							{{good.type}}<br><text class="text5">{{good.status}}</text>
+							{{good.type}}<br>
+							<text v-if="good.status===0" class="text5">未认领</text>
+							<text v-else-if="good.status===1" class="text5">已认领</text>
 						</view>
 				</view>
-				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.orderId,good.type)">
+				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -38,10 +43,12 @@
 						</view>
 					</view>
 					<view class="right">
-						{{good.type}}<br><text class="text5">{{good.status}}</text>
+						{{good.type}}<br>
+						<text v-if="good.status===0" class="text5">未接取</text>
+						<text v-else-if="good.status===1" class="text5">已接取</text>
 					</view>
 				</view>
-				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.orderId,good.type)">
+				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.order_id,good.type)">
 					<view class="left">
 						<img src="" class="imag1">
 						<view class="">
@@ -50,7 +57,9 @@
 						</view>
 					</view>
 					<view class="right">
-						{{good.type}}<br><text class="text5">{{good.status}}</text>
+						{{good.type}}<br>
+						<text v-if="good.status===0" class="text5">未售出</text>
+						<text v-else-if="good.status===1" class="text5">已售出</text>
 					</view>
 				</view>
 			</view>
@@ -65,6 +74,34 @@
 				keyword:'',
 				userinfo:{},
 				initial_goods:[
+					{
+						order_id:'2777',
+						type:'失物',
+						name:'失物1',
+						time:'2022-11-9 10:10:10',
+						status:'已认领',
+					},
+					{
+						good_id:'1111',
+						type:'二手',
+						name:'商品1',
+						time:'2022-11-9 10:10:10',
+						status:0,
+					},
+					{
+						good_id:'111',
+						type:'代办',
+						name:'代办名称1',
+						time:'2022-11-9 10:10:10',
+						status:1
+					},
+					{
+						good_id:'11233',
+						type:'招领',
+						name:'物品1',
+						time:'2022-11-9 10:10:10',
+						status:'已完成'
+					}
 				]
 			}
 		},
@@ -74,29 +111,34 @@
 				console.log(this.userinfo.id)
 				//从数据库获取订单数组
 				uni.request({
-					url:'http://qiuxiuhao.viphk.91tunnel.com/myorder',
+					url:'http://qiuxiuhao.viphk.91tunnel.com/myrelease',
 					data:{id:this.userinfo.id},
 					success:res=> {
 						this.initial_goods = res.data
-						console.log(this.initial_goods)
 					}
 				})
 		},
 		methods: {
-			selectscouce(e){
-				this.select.source = this.source[e.detail.value]
-			},
-			selectstatus(e){
-				this.select.status = this.status[e.detail.value]
-			},
 			gotodetail(id,type){
-				uni.navigateTo({
-					url:'/pages/mine/order/order_detail?id=' + id +'&type=' +  type
-				})
+				if(type==='失物'||type==='招领'){
+					uni.navigateTo({
+						url:'/pages/mine/mrelease/release_lossdetail?id = ' + id +'&type=' +  type
+					})
+				}
+				else if(type==='二手'){
+					uni.navigateTo({
+						url:'/pages/mine/mrelease/release_shopdetail?id = ' + id +'&type=' +  type
+					})
+				}
+				else if(type==='代办'){
+					uni.navigateTo({
+						url:'/pages/mine/mrelease/release_rundetail?id = ' + id +'&type=' +  type
+					})
+				}
 			},
 			release(){
 				uni.navigateTo({
-					url:'/pages/mine/order/release'
+					url:'/pages/mine/mrelease/release'
 				})
 			}
 		},
@@ -105,7 +147,7 @@
 			goods(){
 				return this.initial_goods.filter((p)=>{
 					return  p.name.indexOf(this.keyword) !== -1
-				})
+                })
 			}
 		}
 	}
@@ -126,10 +168,10 @@
 	}
 	.serach{
 		height: 40px;padding-left: 5%;
-		background-color: #66c3E4;align-items: center;
+		background-color: #66c3E4;display: flex;flex-direction: row;
 	}
 	.keyinput{
-		height: 30px;width: 90%;
+		height: 30px;width: 65%;
 		background-color: white;
 		border: solid;padding-left: 10px;
 		border-radius: 5px;

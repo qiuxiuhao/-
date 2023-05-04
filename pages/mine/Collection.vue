@@ -7,7 +7,7 @@
 			<view class="" v-for="good in goods">
 				<view v-if="good.type==='失物'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
-						<img src="" class="imag1">
+						<img :src="good.avatar" class="imag1">
 						<view class="">
 							<text class="text1">{{good.name}}</text><br>
 							<text class="text2">{{good.time}}</text>
@@ -19,7 +19,7 @@
 				</view>
 				<view v-if="good.type==='招领'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
-						<img src="" class="imag1">
+						<img :src="good.avatar" class="imag1">
 						<view class="">
 							<text class="text1">{{good.name}}</text><br>
 							<text class="text2">{{good.time}}</text>
@@ -31,7 +31,7 @@
 				</view>
 				<view v-if="good.type==='代办'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
-						<img src="" class="imag1">
+						<img :src="good.avatar" class="imag1">
 						<view class="">
 							<text class="text1">{{good.name}}</text><br>
 							<text class="text2">{{good.time}}</text>
@@ -43,7 +43,7 @@
 				</view>
 				<view v-if="good.type==='二手'" class="item" @click="gotodetail(good.type,good.id)">
 					<view class="left">
-						<img src="" class="imag1">
+						<img :src="good.avatar" class="imag1">
 						<view class="">
 							<text class="text1">{{good.name}}</text><br>
 							<text class="text2">{{good.time}}</text>
@@ -64,30 +64,7 @@
 			return {
 				keyword:'',
 				initial_goods:[
-					{
-						id:'',
-						type:'失物',
-						name:'失物1',
-						time:'2022-11-9 10:10:10'
-					},
-					{
-						id:'',
-						type:'二手',
-						name:'商品1',
-						time:'2022-11-9 10:10:10'
-					},
-					{
-						id:'',
-						type:'代办',
-						name:'代办名称1',
-						time:'2022-11-9 10:10:10'
-					},
-					{
-						id:'',
-						type:'招领',
-						name:'物品1',
-						time:'2022-11-9 10:10:10'
-					}
+					
 				],
 				userinfo:{}
 			}
@@ -97,10 +74,10 @@
 				this.userinfo = uni.getStorageSync('userinfo')
 				//向数据库获取收藏数组
 				uni.request({
-					url:'',
+					url:'http://qiuxiuhao.viphk.91tunnel.com/get_favorite',
 					data:{id:this.userinfo.id},
-					success(res) {
-						this.initial_goods = res.data.goods
+					success:res=>{
+						this.initial_goods = res.data
 					}
 				})
 		},

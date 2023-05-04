@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="main" v-if="type==='二手'||type==='代办'">
+		<view class="main" v-if="type==='代办'">
 			<view class="item">
 				<text class="text_1">订单名称</text>
 				<text class="text_2">{{order.name}}</text>
@@ -43,17 +43,82 @@
 			</view>
 			<view class="item">
 				<text class="text_1">交易金额</text>
-				<text class="text_2">{{order.pirece}}元</text>
+				<text class="text_2">{{order.price}}元</text>
 			</view>
 			<view class="">
 				<text style="font-size: 20px;">评价</text>
 				<view v-if=" order.status==='已完成'">
-					<view v-if="!order.evaluate.exist" class="release_eva">
+					<view v-if="!evaluate.exist" class="release_eva">
 						<textarea v-model="evaluate_input" class="release_text" placeholder="请输入评价"></textarea>
-						<button class="button1">发布评价</button>
+						<button class="button1" @click="commitp">发布评价</button>
 					</view>
-					<view v-else-if="order.evaluate.exist" class="text_3">
-						<text>{{order.evaluate.content}}</text>
+					<view v-else-if="evaluate.exist" class="text_3">
+						<text>{{evaluate.content}}</text>
+					</view>
+				</view>
+				<view v-else-if=" order.status!=='已完成'" class="text_3">
+					<text style="color: red;">该订单还未完成,不可评价</text>
+				</view>
+			</view>
+		</view>
+		<view class="main" v-else-if="type==='二手'">
+			<view class="item">
+				<text class="text_1">订单名称</text>
+				<text class="text_2">{{order.name}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">订单类型</text>
+				<text class="text_2">{{type}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">订单状态</text>
+				<text class="text_2">{{order.status}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">订单生成时间</text>
+				<text class="text_2">{{order.creatime}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">订单完成时间</text>
+				<text class="text_2">{{order.finishtime}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">订单编号</text>
+				<text class="text_2">{{order_id}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">发布者</text>
+				<text class="text_2">{{order.user_from}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">发布者手机号</text>
+				<text class="text_2">{{order.userphone_from}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">交易对象</text>
+				<text class="text_2">{{order.user_to}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">交易对象手机号</text>
+				<text class="text_2">{{order.userphone_to}}</text>
+			</view>
+			<view class="item">
+				<text class="text_1">交易金额</text>
+				<text class="text_2">{{order.price}}元</text>
+			</view>
+			<view class="item">
+				<text class="text_1">收获地址</text>
+				<text class="text_2">{{order.address}}</text>
+			</view>
+			<view class="">
+				<text style="font-size: 20px;">评价</text>
+				<view v-if=" order.status==='已完成'">
+					<view v-if="!evaluate.exist" class="release_eva">
+						<textarea v-model="evaluate_input" class="release_text" placeholder="请输入评价"></textarea>
+						<button class="button1" @click="commitp">发布评价</button>
+					</view>
+					<view v-else-if="evaluate.exist" class="text_3">
+						<text>{{evaluate.content}}</text>
 					</view>
 				</view>
 				<view v-else-if=" order.status!=='已完成'" class="text_3">
@@ -112,7 +177,7 @@
 				type:'二手',
 				order_id:'12345567890',
 				order:{
-					good_id:'27',
+					/*good_id:'27',
 					status:'已完成',
 					user_from:'星辰',
 					userid_from:'123456',
@@ -123,11 +188,11 @@
 					name:'物品1',
 					creatime:'2022/12/31-22:21:58',
 					fishtime:'2022/12/31-22:21:58',
-					pirece:15,
-					evaluate:{
-						exist:false,
-						content:'好好好哈哈哈哈哈'
-					}
+					pirece:15,*/
+				},
+				evaluate:{
+					/*exist:false,
+					content:'好好好哈哈哈哈哈'*/
 				},
 				evaluate_input:''
 			}
@@ -136,6 +201,7 @@
 		onLoad(e) {
 			this.order_id = e.id
 			this.type = e.type
+			console.log(this.order_id,this.type)
 		},
 		onShow() {
 				//从本地获取用户id
@@ -143,11 +209,12 @@
 				//从数据库获取订单数组
 				if(this.oder_id!==0){
 					uni.request({
-						url:'',
+						url:'http://qiuxiuhao.viphk.91tunnel.com/get_daiban',
 						data:{id:this.order_id,
 						type:this.type},
-						success(res) {
+						success:res=> {
 							this.order = res.data.order
+							this.evaluate = res.data.evaluate
 						}
 					})
 				}
@@ -187,18 +254,22 @@
 				if(way){
 					uni.showModal({
 						content:'确定完成',
-						success(res) {
+						success:res=> {
 							if(res.confirm){
 								//修改数据库
-								/*uni.request({
-									url:'',
-									success(){
+								uni.request({
+									url:'http://qiuxiuhao.viphk.91tunnel.com/commit_daibanorder',
+									data:{
+										id:this.order_id,
+										type:this.type
+									},
+									success:res=>{
 										uni.showToast({
 											title:'已完成',
 											icon:'none'
 										})
 									}
-								})*/
+								})
 							}
 						}
 					})
@@ -223,6 +294,22 @@
 						}
 					})
 				}
+			},
+			commitp(){
+				uni.request({
+					url:'http://qiuxiuhao.viphk.91tunnel.com/create_comment',
+					data:{
+						id:this.order_id,
+						type:this.type,
+						detail:this.evaluate_input,
+					},
+					success:res=>{
+						uni.showToast({
+							title:'已评价',
+							icon:'none'
+						})
+					}
+				})
 			}
 		}
 	}

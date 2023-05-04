@@ -194,7 +194,7 @@
         }
 		//新增发布
         ,{
-            "path" : "pages/mine/order/release",
+            "path" : "pages/mine/mrelease/release",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "新增发布",
@@ -273,6 +273,48 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "系统通知",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//我的发布
+        ,{
+            "path" : "pages/mine/mrelease",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的发布",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+		//发布详情
+        ,{
+            "path" : "pages/mine/mrelease/release_lossdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发布详情",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/mrelease/release_shopdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发布详情",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#66C3E4"
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/mrelease/release_rundetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发布详情",
                 "enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#66C3E4"
             }

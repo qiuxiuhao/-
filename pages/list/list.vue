@@ -113,7 +113,7 @@
 					})
 				}else{
 					uni.navigateTo({
-						url:'/pages/detail/lossdetail?id=' + id
+						url:'/pages/detail/lossdetail?id=' + id+'&type='+type
 					})
 				}
 			}
